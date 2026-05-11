@@ -1,0 +1,28 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10">
+            <ssbt:svarsdata>
+                <ssbt:SKV>
+                    <ssbt:data>
+                        <svar><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<SvarBeskattningsuppgifterEnligtSFS2008-975 xmlns="http://xmls.skatteverket.se/se/skatteverket/zg/instans/standardiseradInformation/1.0" xmlns:besko="http://xmls.skatteverket.se/se/skatteverket/zg/komponent/infoForBeskattning/1.0" xmlns:folko="http://xmls.skatteverket.se/se/skatteverket/zg/komponent/infoForFolkbokforing/1.0">
+    <PersonuppgiftLista>
+        <Personuppgift>
+            <folko:IdentitetsbeteckningFysiskPerson>199001011234</folko:IdentitetsbeteckningFysiskPerson>
+            <folko:Fornamn>Berit</folko:Fornamn>
+            <folko:Efternamn>Berg</folko:Efternamn>
+            <StatusPersonuppgiftKod>999</StatusPersonuppgiftKod>
+            <Kapitaluppgift>
+                <besko:Taxeringsar>2001</besko:Taxeringsar>
+                <besko:SummaIntakterPaKapital>12345</besko:SummaIntakterPaKapital>
+                <besko:OverskottPaKapital>666</besko:OverskottPaKapital>
+            </Kapitaluppgift>
+        </Personuppgift>
+    </PersonuppgiftLista>
+</SvarBeskattningsuppgifterEnligtSFS2008-975>]]></svar>
+                    </ssbt:data>
+                </ssbt:SKV>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

@@ -1,0 +1,32 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10">
+            <ssbt:svarsdata>
+                <ssbt:MIV>
+                    <ssbt:data>
+                        <response>
+                            <korrelationsid>00000000-0000-0000-0000-000000000001</korrelationsid>
+                            <correlationid>00000000-0000-0000-0000-000000000001</correlationid>
+                            <efternamn>Tolvansson</efternamn>
+                            <fornamn>Tolvan</fornamn>
+                            <personnummer>199001011234</personnummer>
+                            <svarCollection>
+                                <svar>
+                                    <ansokningsdatum>1997-09-12+02:00</ansokningsdatum>
+                                    <arendeTyp>UAT</arendeTyp>
+                                    <arendeTypNamn>UPPEHÅLLS- OCH ARBETSTILLSTÅND</arendeTypNamn>
+                                    <beslutsKod>BEV</beslutsKod>
+                                    <beslutsKodNamn>ANSÖKAN BEVILJAS</beslutsKodNamn>
+                                    <beslutsTyp>PUT</beslutsTyp>
+                                    <beslutsTypNamn>PERMANENT UPPEHÅLLSTILLSTÅND</beslutsTypNamn>
+                                    <beslutsdatum>1998-05-12+02:00</beslutsdatum>
+                                    <giltighetstid>PERMANENT</giltighetstid>
+                                </svar>
+                            </svarCollection>
+                        </response>
+                    </ssbt:data>
+                </ssbt:MIV>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

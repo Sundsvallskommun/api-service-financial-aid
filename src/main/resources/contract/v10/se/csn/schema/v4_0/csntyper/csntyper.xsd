@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema targetNamespace="http://schema.csn.se/v4.0/csntyper" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:csngem="http://schema.csn.se/v4.0/csntyper" xml:lang="sv" version="4.0">
+	<xs:annotation>
+		<xs:documentation xml:lang="sv"></xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="ResultatKod">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ResultatText">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="personnummer">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:pattern value="[0-9][0-9][0-1][0-9][0-3][0-9][0-9][0-9][0-9][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sekel">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="(18|19|20)" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="schemaVersion">
+		<xs:restriction base="xs:decimal"/>
+	</xs:simpleType>
+	<xs:simpleType name="belopp">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="7"/>
+			<xs:pattern value="-?[0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="relarende">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:pattern value="[0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="klartext">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="40"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="sekretess">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="stodform">
+		<xs:annotation>
+			<xs:documentation>GRUND(Studiemedel för studier i Sverige), GRUNDU(Studiemedel för studier utomlands), MLÅN(Merkostnadslån för studier i Sverige), MLÅNU(Merkostnadslån för studier i utomlands), TLÅN(Tilläggslån), TILB(Tilläggsbidrag), SH(läsår Studiehjälp Sverige), SHU(läsår Studiehjälp utomlands), SB(Studiebidrag), SBU(Studiebidrag), EXTRA(Extra tillägg), EXTRAU(Extra tillägg), INACK(Inackorderingstillägg), INACKU(Inackorderingstillägg), LÄRLE(Lärlingsersättning), HUT(Hemutrustningslån), SSSTÖD (Studiestartsstöd), OSS (Omställningsstudiestöd) </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="beloppstyp">
+		<xs:annotation>
+			<xs:documentation>GRUNDB(Bidrag), GRUNDF(Förhöjt bidrag), GRUNDL(Lån), GRUNFL(Lån till förhöjt bidrag), MERKL(Merkostnadslån), TILL(Tilläggslån), TILB(Tilläggsbidrag), EXTRA(Extra tillägg), INACK(Inackorderingstillägg), STUDB(Studiebidrag), LÄRERS(Lärlingsersättning), HUT, STÖDB (Studiestartsstöd bidrag), STÖDT (Studiestartsstöd tilläggsbidrag), OSSBID (Omställningsstudiestöd bidrag), OSSLÅN (Omställningsstudiestöd lån) </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="status">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="          "/>
+			<xs:enumeration value="BESLUTAD"/>
+			<xs:enumeration value="INITIERAD"/>
+			<xs:enumeration value="AVSLUTAD"/>
+			<xs:enumeration value="BESLUTAT"/>
+			<xs:enumeration value="INITIERAT"/>
+			<xs:enumeration value="AVSLUTAT"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="personstatus">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="          "/>
+			<xs:enumeration value="Ej träff"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="datum">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="8"/>
+			<xs:pattern value="[0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="vecka">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="8"/>
+			<xs:pattern value="[0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="takt">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:enumeration value="0"/>
+			<xs:enumeration value="20"/>
+			<xs:enumeration value="40"/>
+			<xs:enumeration value="50"/>
+			<xs:enumeration value="60"/>
+			<xs:enumeration value="75"/>
+			<xs:enumeration value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="gr_takt">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="3"/>
+			<xs:pattern value="[0-9]+"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="utbetstatus">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+			<xs:enumeration value="Utbetald"/>
+			<xs:enumeration value="Planerad"/>
+			<xs:enumeration value="UTBETALAD"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="soktlan">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1"/>
+			<xs:enumeration value=" "/>
+			<xs:enumeration value="J"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="studiestodstypforteckning">
+		<xs:sequence>
+			<xs:element name="studiemedel" type="xs:string"/>
+			<xs:element name="studiehjalp" type="xs:string"/>
+			<xs:element name="hemutrustningslan" type="xs:string"/>
+			<xs:element name="studiestartsstod" type="xs:string"/>
+			<xs:element name="omstallningsstudiestod" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Belopp">
+		<xs:sequence>
+			<xs:element name="beloppstyp" type="csngem:beloppstyp"/>
+			<xs:element name="klartext" type="csngem:klartext"/>
+			<xs:element name="belopp" type="csngem:belopp"/>
+			<xs:element name="totbelopp" type="csngem:belopp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Sokttid">
+		<xs:sequence>
+			<xs:element name="soktfrom" type="csngem:datum"/>
+			<xs:element name="sokttom" type="csngem:datum"/>
+			<xs:element name="soktomfattning" type="csngem:takt"/>
+			<xs:element name="soktlan" type="csngem:soktlan" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Beviljadtid">
+		<xs:sequence>
+			<xs:element name="starttid" type="csngem:vecka"/>
+			<xs:element name="sluttid" type="csngem:vecka"/>
+			<xs:element name="takt" type="csngem:takt" maxOccurs="1" minOccurs="0"/>
+			<xs:element name="gr_takt" type="csngem:gr_takt" maxOccurs="1" minOccurs="0"/>
+			<xs:element name="Beloppen">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Belopp" type="csngem:Belopp" minOccurs="0" maxOccurs="10"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="totbelopp" type="csngem:belopp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Utbetaldtid">
+		<xs:sequence>
+			<xs:element name="startvecka" type="csngem:vecka" maxOccurs="1" minOccurs="0"/>
+			<xs:element name="slutvecka" type="csngem:vecka" maxOccurs="1" minOccurs="0"/>
+			<xs:element name="Beloppen">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Belopp" type="csngem:Belopp" minOccurs="0" maxOccurs="10"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="totbelopp" type="csngem:belopp"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Utbetalning">
+		<xs:sequence>
+			<xs:element name="utbetdatum" type="csngem:datum"/>
+			<xs:element name="utbetstatus" type="csngem:utbetstatus"/>
+			<xs:element name="Utbetaldatider">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Utbetaldtid" type="csngem:Utbetaldtid" minOccurs="0" maxOccurs="10"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="totbelopp" type="csngem:belopp"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

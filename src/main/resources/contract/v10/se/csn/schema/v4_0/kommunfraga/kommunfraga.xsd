@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schema.csn.se/v4.0/kommunfraga" xml:lang="sv" xmlns="http://www.example.org/v4.0/kommunfraga" xmlns:csn="http://schema.csn.se/v4.0/kommunfraga" xmlns:csngem="http://schema.csn.se/v4.0/csntyper" xmlns:csnpers="http://schema.csn.se/v4.0/person" xmlns:sam="http://www.sambruk.se/SBNyttomeddelanden">
+    <xs:import namespace="http://schema.csn.se/v4.0/csntyper" schemaLocation="../csntyper/csntyper.xsd"/>
+	<xs:import namespace="http://www.sambruk.se/SBNyttomeddelanden" schemaLocation="../../../../sambruk/sbnyttomeddelanden/SBNUppgEkBistandBegar_v1_0.xsd"/>
+	<xs:import namespace="http://schema.csn.se/v4.0/person" schemaLocation="../person/person.xsd"/>
+
+	<xs:element name="SBNUppgEkBistandBegar" type="sam:SBNUppgEkBistandBegar"/>
+
+	<xs:element name="CSNSvar">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="1" minOccurs="1" name="GemensamtSvarEkbistand">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Resultat">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="1" minOccurs="1" name="ResultatKod" type="csngem:ResultatKod">
+										</xs:element>
+										<xs:element maxOccurs="1" minOccurs="1" name="ResultatText" type="csngem:ResultatText">
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element maxOccurs="1" minOccurs="1" name="GemensamtFragaEkbistand" type="sam:SBNUppgEkBistandBegar">
+				</xs:element>
+				<xs:element maxOccurs="1" minOccurs="1" name="Personer">
+					<xs:complexType>
+						<xs:sequence maxOccurs="10" minOccurs="0">
+							<xs:element maxOccurs="1" minOccurs="1" name="Person" type="csnpers:Person">
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute name="schemaVersion" type="csngem:schemaVersion" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

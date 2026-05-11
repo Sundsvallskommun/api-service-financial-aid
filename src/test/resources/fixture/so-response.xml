@@ -1,0 +1,34 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10"
+                                                xmlns:in="http://INT014.UBPService.Schemas">
+            <ssbt:svarsdata>
+                <ssbt:SO>
+                    <ssbt:data>
+                        <in:OrganisationsnummerIngivare>162000000001</in:OrganisationsnummerIngivare>
+                        <in:NamnIngivare>Testkommun</in:NamnIngivare>
+                        <in:KontonamnHandlaggare>HL000001</in:KontonamnHandlaggare>
+                        <in:Referensnummer>AID00000001</in:Referensnummer>
+                        <in:From>2016-01-01</in:From>
+                        <in:Tom>2017-01-01</in:Tom>
+                        <in:IdentificationNumber>199001011234</in:IdentificationNumber>
+                        <in:ArbetsloshetsersattningLista>
+                            <in:Arbetsloshetsersattning>
+                                <in:SvarandeOrganisation>Testorganisation</in:SvarandeOrganisation>
+                                <in:StatusSvarandeOrganisation>all clear</in:StatusSvarandeOrganisation>
+                                <in:Utbetalningar>
+                                    <in:Utbetalningsdatum>2013-11-23</in:Utbetalningsdatum>
+                                    <in:NettoEfterSkatt>1250.50</in:NettoEfterSkatt>
+                                    <in:NettoEfterAvdrag>1250.50</in:NettoEfterAvdrag>
+                                    <in:Ersattningsdagar>2</in:Ersattningsdagar>
+                                    <in:AvserFrom>2013-11-03</in:AvserFrom>
+                                    <in:AvserTom>2013-11-03</in:AvserTom>
+                                </in:Utbetalningar>
+                            </in:Arbetsloshetsersattning>
+                        </in:ArbetsloshetsersattningLista>
+                    </ssbt:data>
+                </ssbt:SO>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

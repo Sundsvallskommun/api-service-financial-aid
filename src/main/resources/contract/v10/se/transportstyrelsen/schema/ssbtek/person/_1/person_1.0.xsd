@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:tns="http://schema.transportstyrelsen.se/ssbtek/person/1" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schema.transportstyrelsen.se/ssbtek/person/1" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:annotation>
+		<xs:documentation>
+			 Beskrivning:	Typer som hanterar personinformation
+			 Revisioner:	2018-02-02 - Version 1.0
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:complexType name="IdentifikationType">
+		<xs:annotation>
+			<xs:documentation>
+				Typ identifierar en person (personnummer/samordningsnummer) och sekelsiffra
+			</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="sekel" type="tns:SekelType">
+				<xs:annotation>
+					<xs:documentation>Sekelsiffra (ÅÅ)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="personnummer" type="tns:PersonnummerType" >
+				<xs:annotation>
+					<xs:documentation>Personnummer eller samordningsnummer utan bindestreck (ÅÅMMDDXXXX)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:any namespace="##other" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:simpleType name="PersonnummerType">
+		<xs:restriction base="xs:string">
+			<xs:length value="10"/>
+			<xs:pattern value="[0-9][0-9][0-1][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SekelType">
+		<xs:restriction base="xs:string">
+			<xs:length value="2"/>
+			<xs:pattern value="(19|20)" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

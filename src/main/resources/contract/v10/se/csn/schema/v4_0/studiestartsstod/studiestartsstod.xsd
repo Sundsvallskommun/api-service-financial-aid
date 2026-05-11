@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://schema.csn.se/v4.0/studiestartsstod" xml:lang="sv" xmlns:csngem="http://schema.csn.se/v4.0/csntyper" xmlns:csnsss="http://schema.csn.se/v4.0/studiestartsstod">
+	<xs:import namespace="http://schema.csn.se/v4.0/csntyper" schemaLocation="../csntyper/csntyper.xsd"/>
+
+	<xs:complexType name="arende">
+		<xs:sequence>
+			<xs:element maxOccurs="1" minOccurs="1" name="stodform" type="csngem:stodform">
+		
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="klartext" type="csngem:klartext">
+		
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="1" name="status" type="csngem:status">
+		
+			</xs:element>
+			<xs:element maxOccurs="1" minOccurs="0" name="relarende" type="csngem:relarende">
+		
+			</xs:element>
+			<xs:element name="soktaTider">
+				<xs:complexType>
+					<xs:sequence maxOccurs="5" minOccurs="0">
+						<xs:element maxOccurs="5" minOccurs="0" name="soktTid" type="csngem:Sokttid"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BeviljadeTider">
+				<xs:complexType>
+					<xs:sequence maxOccurs="10" minOccurs="0">
+						<xs:element maxOccurs="10" minOccurs="0" name="BeviljadTid" type="csngem:Beviljadtid"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UtbetalningsPlan">
+				<xs:complexType>
+					<xs:sequence maxOccurs="50" minOccurs="0">
+						<xs:element maxOccurs="50" minOccurs="0" name="Utbetalning" type="csngem:Utbetalning"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="lopnummer" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="3"/>
+					<xs:pattern value="[0-9]+"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

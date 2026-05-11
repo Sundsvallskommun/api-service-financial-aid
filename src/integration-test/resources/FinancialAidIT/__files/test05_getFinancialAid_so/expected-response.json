@@ -1,0 +1,25 @@
+{
+	"so": {
+		"OrganisationsnummerIngivare": "162000000001",
+		"NamnIngivare": "Testkommun",
+		"KontonamnHandlaggare": "HL000001",
+		"Referensnummer": "AID00000001",
+		"From": "2016-01-01",
+		"Tom": "2017-01-01",
+		"IdentificationNumber": "199001011234",
+		"ArbetsloshetsersattningLista": {
+			"Arbetsloshetsersattning": {
+				"SvarandeOrganisation": "Testorganisation",
+				"StatusSvarandeOrganisation": "all clear",
+				"Utbetalningar": {
+					"Utbetalningsdatum": "2013-11-23",
+					"NettoEfterSkatt": "1250.50",
+					"NettoEfterAvdrag": "1250.50",
+					"Ersattningsdagar": "2",
+					"AvserFrom": "2013-11-03",
+					"AvserTom": "2013-11-03"
+				}
+			}
+		}
+	}
+}

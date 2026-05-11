@@ -1,0 +1,18 @@
+{
+	"request": {
+		"url": "/ssbtek",
+		"method": "POST",
+		"headers": {
+			"Content-Type": {
+				"contains": "text/xml"
+			}
+		}
+	},
+	"response": {
+		"status": 200,
+		"headers": {
+			"Content-Type": "text/xml;charset=UTF-8"
+		},
+		"bodyFileName": "test03_getFinancialAid_fk/responses/ssbtek-response.xml"
+	}
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema targetNamespace="http://beskattningws.ws.service.bs.zg.rsv.se/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://beskattningws.ws.service.bs.zg.rsv.se/" version="1.0">
+	<xs:element name="BeskattningsuppgifterRequest" type="tns:BeskattningsuppgifterRequestTYPE"/>
+	<xs:element name="BeskattningsuppgifterResponse" type="tns:BeskattningsuppgifterResponseTYPE"/>
+	<xs:element name="Exception" type="tns:FaultTYPE"/>
+	<xs:complexType name="BeskattningsuppgifterRequestTYPE">
+		<xs:sequence>
+			<xs:element name="forfragan" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BeskattningsuppgifterResponseTYPE">
+		<xs:sequence>
+			<xs:element name="svar" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="FaultTYPE">
+		<xs:sequence>
+			<xs:element name="MeddelandeKod" type="tns:MeddelandeKodTYPE" minOccurs="0"/>
+			<xs:element name="MeddelandeText" type="tns:MeddelandeTextTYPE" minOccurs="0"/>
+			<xs:element name="Systemversion" type="tns:SystemversionTYPE" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="MeddelandeKodTYPE">
+		<xs:restriction base="xs:int">
+			<xs:minInclusive value="9071000"/>
+			<xs:maxInclusive value="9071999"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MeddelandeTextTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="300"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SystemversionTYPE">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="1"/>
+			<xs:maxLength value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
