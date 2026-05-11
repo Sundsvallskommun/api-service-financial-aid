@@ -1,0 +1,31 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10"
+                                                xmlns:tns="http://schema.transportstyrelsen.se/ssbtek/hamtauppgifterresponder/1"
+                                                xmlns:fordon="http://schema.transportstyrelsen.se/ssbtek/fordon/1">
+            <ssbt:svarsdata>
+                <ssbt:TNS>
+                    <ssbt:data>
+                        <tns:resultat>OK</tns:resultat>
+                        <tns:fordonsinnehav>
+                            <fordon:fordon>
+                                <fordon:regnr>ABC001</fordon:regnr>
+                                <fordon:fabrikat>Volvo</fordon:fabrikat>
+                                <fordon:fordonsar>2012</fordon:fordonsar>
+                                <fordon:fordonsslag>PERSONBIL</fordon:fordonsslag>
+                                <fordon:handelsbeteckning>V70</fordon:handelsbeteckning>
+                            </fordon:fordon>
+                            <fordon:fordon>
+                                <fordon:regnr>ABC002</fordon:regnr>
+                                <fordon:fabrikat>HONDA</fordon:fabrikat>
+                                <fordon:fordonsar>2001</fordon:fordonsar>
+                                <fordon:fordonsslag>MOTORCYKEL</fordon:fordonsslag>
+                                <fordon:handelsbeteckning>SH300A</fordon:handelsbeteckning>
+                            </fordon:fordon>
+                        </tns:fordonsinnehav>
+                    </ssbt:data>
+                </ssbt:TNS>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

@@ -3,4 +3,9 @@
 #========================================
 logging:
   level:
-    root: DEBUG
+    root: INFO
+integration:
+  ssbtek:
+    url: http://localhost:${wiremock.server.port}/ssbtek
+    connect-timeout: 5
+    read-timeout: 30

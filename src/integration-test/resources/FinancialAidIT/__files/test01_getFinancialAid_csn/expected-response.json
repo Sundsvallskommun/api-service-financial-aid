@@ -1,0 +1,25 @@
+{
+	"csn": {
+		"schemaVersion": "3.0",
+		"GemensamtSvarEkbistand": {
+			"Resultat": {
+				"ResultatKod": "0",
+				"ResultatText": "Allt OK, inget att rapportera"
+			}
+		},
+		"Personer": {
+			"Person": {
+				"Status": "          ",
+				"personnummer": "9001011234",
+				"sekel": "19",
+				"sekretess": "  ",
+				"Studiestodstypforteckning": {
+					"studiemedel": "0",
+					"studiehjalp": "0",
+					"hemutrustningslan": "0",
+					"studiestartsstod": "0"
+				}
+			}
+		}
+	}
+}

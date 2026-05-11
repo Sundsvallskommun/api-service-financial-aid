@@ -1,0 +1,21 @@
+{
+	"af": {
+		"Svar": {
+			"Schemaversion": "4.0",
+			"Referensnummer": "AID00000001",
+			"IdentitetsbeteckningFysiskPerson": "199001011234",
+			"Fornamn": "Tolvan",
+			"Efternamn": "Tolvansson",
+			"Sekretessmarkering": "false",
+			"ArbetssokandeInfo": {
+				"Arbetssokande": "true",
+				"ArbetssokandeSKAT": "Anställd",
+				"ArbetssokandeRegistrerad": "2016-11-18+01:00",
+				"ArbetssokandeOmfattning": "100"
+			},
+			"Akassetillhorighet": "Test ak",
+			"StatusSokandeinformationKod": "0",
+			"StatusSokandeinformationKodText": "Frågan har behandlats normalt och ett giltigt svar har returnerats."
+		}
+	}
+}

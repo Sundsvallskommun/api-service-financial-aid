@@ -1,0 +1,24 @@
+{
+	"miv": {
+		"response": {
+			"korrelationsid": "00000000-0000-0000-0000-000000000001",
+			"correlationid": "00000000-0000-0000-0000-000000000001",
+			"efternamn": "Tolvansson",
+			"fornamn": "Tolvan",
+			"personnummer": "199001011234",
+			"svarCollection": {
+				"svar": {
+					"ansokningsdatum": "1997-09-12+02:00",
+					"arendeTyp": "UAT",
+					"arendeTypNamn": "UPPEHÅLLS- OCH ARBETSTILLSTÅND",
+					"beslutsKod": "BEV",
+					"beslutsKodNamn": "ANSÖKAN BEVILJAS",
+					"beslutsTyp": "PUT",
+					"beslutsTypNamn": "PERMANENT UPPEHÅLLSTILLSTÅND",
+					"beslutsdatum": "1998-05-12+02:00",
+					"giltighetstid": "PERMANENT"
+				}
+			}
+		}
+	}
+}
