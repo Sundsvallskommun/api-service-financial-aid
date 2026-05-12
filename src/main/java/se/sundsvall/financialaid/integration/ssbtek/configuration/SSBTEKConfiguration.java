@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Import;
 import se.sundsvall.dept44.configuration.feign.FeignConfiguration;
 import se.sundsvall.dept44.configuration.feign.FeignMultiCustomizer;
 import se.sundsvall.dept44.problem.Problem;
+import se.sundsvall.dept44.problem.ThrowableProblem;
 import se.sundsvall.dept44.util.KeyStoreUtils;
 import ssbtek.ObjectFactory;
 import ssbtek.SammansattBastjanstFraga;
@@ -44,17 +45,13 @@ public class SSBTEKConfiguration {
 
 	@Bean
 	FeignBuilderCustomizer feignBuilderCustomizer(final SSBTEKProperties properties) {
-		var customizer = FeignMultiCustomizer.create()
+		return FeignMultiCustomizer.create()
 			.withEncoder(new SSBTEKSoapEncoder())
 			.withDecoder(new SSBTEKSoapDecoder())
 			.withErrorDecoder(new SOAPFaultErrorDecoder())
-			.withRequestTimeoutsInSeconds(properties.connectTimeout(), properties.readTimeout());
-
-		if (properties.keyStoreAsBase64() != null && !properties.keyStoreAsBase64().isBlank()) {
-			customizer.withCustomizer(builder -> builder.client(createMtlsClient(properties)));
-		}
-
-		return customizer.composeCustomizersToOne();
+			.withRequestTimeoutsInSeconds(properties.connectTimeout(), properties.readTimeout())
+			.withCustomizer(builder -> builder.client(createMtlsClient(properties)))
+			.composeCustomizersToOne();
 	}
 
 	private static Client createMtlsClient(final SSBTEKProperties properties) {
@@ -71,6 +68,10 @@ public class SSBTEKConfiguration {
 		}
 	}
 
+	static ThrowableProblem soapProblem(String message) {
+		return Problem.valueOf(BAD_GATEWAY, "Unknown problem in communication with SSBTEK: " + message);
+	}
+
 	static class SOAPFaultErrorDecoder implements ErrorDecoder {
 
 		@Override
@@ -79,17 +80,13 @@ public class SSBTEKConfiguration {
 				try (var body = response.body().asInputStream()) {
 					SOAPMessage message = MessageFactory.newInstance(SOAPConstants.SOAP_1_1_PROTOCOL).createMessage(null, body);
 					if (message.getSOAPBody() != null && message.getSOAPBody().hasFault()) {
-						return problem(message.getSOAPBody().getFault().getFaultString());
+						return soapProblem(message.getSOAPBody().getFault().getFaultString());
 					}
 				} catch (Exception exception) {
-					return problem(exception.getMessage());
+					return soapProblem(exception.getMessage());
 				}
 			}
-			return problem(response.reason());
-		}
-
-		private static Exception problem(String message) {
-			return Problem.valueOf(BAD_GATEWAY, "Unknown problem in communication with SSBTEK: " + message);
+			return soapProblem(response.reason());
 		}
 	}
 
@@ -101,10 +98,17 @@ public class SSBTEKConfiguration {
 				var soapMessage = MessageFactory.newInstance(SOAPConstants.SOAP_1_1_PROTOCOL).createMessage(null, body);
 				var soapBody = soapMessage.getSOAPBody();
 
+				if (soapBody != null && soapBody.hasFault()) {
+					throw soapProblem(soapBody.getFault().getFaultString());
+				}
+
 				var context = JAXBContext.newInstance(SammansattBastjanstSvar.class);
 				var unmarshaller = context.createUnmarshaller();
 				return unmarshaller.unmarshal(soapBody.extractContentAsDocument(), SammansattBastjanstSvar.class).getValue();
 			} catch (Exception exception) {
+				if (exception instanceof RuntimeException runtime) {
+					throw runtime;
+				}
 				throw new DecodeException(response.status(), "Failed to decode SOAP response: " + exception.getMessage(), response.request(), exception);
 			}
 		}

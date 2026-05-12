@@ -59,25 +59,6 @@ class SSBTEKConfigurationTest {
 		private final SSBTEKConfiguration config = new SSBTEKConfiguration();
 
 		@Test
-		void feignBuilderCustomizer_withoutKeystore_returnsCustomizer() {
-			final var properties = new SSBTEKProperties(5, 30, null, null);
-
-			final var customizer = config.feignBuilderCustomizer(properties);
-
-			assertThat(customizer).isNotNull();
-			customizer.customize(Feign.builder());
-		}
-
-		@Test
-		void feignBuilderCustomizer_withBlankKeystore_returnsCustomizer() {
-			final var properties = new SSBTEKProperties(5, 30, "  ", "");
-
-			final var customizer = config.feignBuilderCustomizer(properties);
-
-			assertThat(customizer).isNotNull();
-		}
-
-		@Test
 		void feignBuilderCustomizer_withValidKeystore_returnsCustomizerAndAppliesMtlsClient() throws Exception {
 			final var password = "changeit";
 			final var keystoreBase64 = createEmptyPkcs12KeystoreAsBase64(password);
@@ -184,6 +165,16 @@ class SSBTEKConfigurationTest {
 			assertThatThrownBy(() -> decoder.decode(response, SammansattBastjanstSvar.class))
 				.isInstanceOf(DecodeException.class)
 				.hasMessageContaining("Failed to decode SOAP response");
+		}
+
+		@Test
+		void decode_withSoapFaultOnSuccessStatus_throwsBadGatewayProblem() {
+			final var response = responseWithBody(SOAP_FAULT_BODY);
+
+			assertThatThrownBy(() -> decoder.decode(response, SammansattBastjanstSvar.class))
+				.isInstanceOf(ThrowableProblem.class)
+				.hasMessageContaining("Backend exploded")
+				.satisfies(thrown -> assertThat(((ThrowableProblem) thrown).getStatus().value()).isEqualTo(BAD_GATEWAY.value()));
 		}
 
 		@Test

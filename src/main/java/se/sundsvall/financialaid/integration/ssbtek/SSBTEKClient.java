@@ -16,5 +16,5 @@ public interface SSBTEKClient {
 	String TEXT_XML_UTF8 = "text/xml;charset=UTF-8";
 
 	@PostMapping(consumes = TEXT_XML_UTF8, produces = TEXT_XML_UTF8)
-	SammansattBastjanstSvar getBaseServiceInformation(SammansattBastjanstFraga request);
+	SammansattBastjanstSvar getBaseServiceInformation(final SammansattBastjanstFraga request);
 }

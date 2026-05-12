@@ -24,7 +24,7 @@ public final class ResponseMapper {
 	 * Map structure.
 	 */
 	public static Map<String, Object> mapCsn(final CsnSvar csnResponse) {
-		if (csnResponse == null || csnResponse.getData() == null) {
+		if (csnResponse == null || csnResponse.getData() == null || csnResponse.getData().getSvar() == null) {
 			return Map.of();
 		}
 		return XmlToJsonUtil.convert(csnResponse.getData().getSvar());
@@ -35,13 +35,14 @@ public final class ResponseMapper {
 	 * benefit information, claims, decisions and payments. Decoded directly into a Map via Jackson.
 	 */
 	public static Map<String, Object> mapFk(final ForsakringskassanSvar fkResponse) {
-		if (fkResponse == null || fkResponse.getData() == null) {
+		if (fkResponse == null || fkResponse.getData() == null || fkResponse.getData().getLefiJsonSvar() == null) {
 			return Map.of();
 		}
 		try {
 			return OBJECT_MAPPER.readValue(
 				fkResponse.getData().getLefiJsonSvar(),
-				new TypeReference<>() {});
+				new TypeReference<>() {
+				});
 		} catch (final IOException exception) {
 			throw new IllegalStateException("Failed to parse FK JSON response", exception);
 		}
@@ -63,7 +64,7 @@ public final class ResponseMapper {
 	 * capital information per assessment year. Parsed directly into a Map.
 	 */
 	public static Map<String, Object> mapSkv(final SkatteverketSvar skvResponse) {
-		if (skvResponse == null || skvResponse.getData() == null) {
+		if (skvResponse == null || skvResponse.getData() == null || skvResponse.getData().getSvar() == null) {
 			return Map.of();
 		}
 		return XmlToJsonUtil.convert(skvResponse.getData().getSvar());

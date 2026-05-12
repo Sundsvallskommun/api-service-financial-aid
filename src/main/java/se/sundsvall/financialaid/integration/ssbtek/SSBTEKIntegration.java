@@ -29,7 +29,7 @@ import ssbtek.Transportstyrelsen;
 public class SSBTEKIntegration {
 
 	private static final DatatypeFactory DATATYPE_FACTORY = createDatatypeFactory();
-	private static final String ORGANISATION_NR = "162021005521";
+	private static final String ORGANISATION_NR = "162120002411";
 	private static final String ORGANISATION_NAME = "Sundsvalls kommun";
 	private static final String FK_AKTORSID = "026-51";
 	private static final String FK_VERSION = "v9";
@@ -70,6 +70,7 @@ public class SSBTEKIntegration {
 	private static SammansattBastjanstFraga buildRequest(final String personalNumber, final LocalDate fromDate, final LocalDate toDate) {
 		return new SammansattBastjanstFraga()
 			.withGenerellaFrageparametrar(new GenerellaFrageparametrar()
+				.withKorrelationsid(UUID.randomUUID().toString())
 				.withFraganSkallInkluderasISvaret(false)
 				.withIngivare(new Ingivare()
 					.withOrganisationsnummer(ORGANISATION_NR)

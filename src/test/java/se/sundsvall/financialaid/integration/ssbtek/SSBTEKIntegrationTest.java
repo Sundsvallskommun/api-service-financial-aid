@@ -78,7 +78,7 @@ class SSBTEKIntegrationTest {
 		integration.getFinancialAid(PERSONAL_NUMBER, FROM_DATE, TO_DATE);
 
 		final var ingivare = captureRequest().getGenerellaFrageparametrar().getIngivare();
-		assertThat(ingivare.getOrganisationsnummer()).isEqualTo("162021005521");
+		assertThat(ingivare.getOrganisationsnummer()).isEqualTo("162120002411");
 		assertThat(ingivare.getNamn()).isEqualTo("Sundsvalls kommun");
 		assertThat(ingivare.getHandlaggare()).isEqualTo("system");
 	}

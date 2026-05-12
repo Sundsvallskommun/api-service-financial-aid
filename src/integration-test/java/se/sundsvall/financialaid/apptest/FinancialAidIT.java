@@ -13,7 +13,8 @@ import se.sundsvall.financialaid.Application;
 	classes = Application.class)
 class FinancialAidIT extends AbstractAppTest {
 
-	private static final String SERVICE_PATH = "/financial-aid?personalNumber=199001011234&fromDate=2025-01-01&toDate=2025-06-30";
+	private static final String MUNICIPALITY_ID = "2281";
+	private static final String SERVICE_PATH = "/" + MUNICIPALITY_ID + "/financial-aid?personalNumber=199001011234&fromDate=2025-01-01&toDate=2025-06-30";
 	private static final String EXPECTED_RESPONSE = "expected-response.json";
 
 	@Test

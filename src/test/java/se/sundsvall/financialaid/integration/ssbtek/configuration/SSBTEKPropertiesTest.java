@@ -1,10 +1,14 @@
 package se.sundsvall.financialaid.integration.ssbtek.configuration;
 
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SSBTEKPropertiesTest {
+
+	private final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
 
 	@Test
 	void record_exposesAllFields() {
@@ -17,11 +21,34 @@ class SSBTEKPropertiesTest {
 	}
 
 	@Test
-	void record_allowsNullKeystoreFields() {
+	void validate_withNullKeystoreFields_reportsConstraintViolations() {
 		final var properties = new SSBTEKProperties(5, 30, null, null);
 
-		assertThat(properties.keyStoreAsBase64()).isNull();
-		assertThat(properties.keyStorePassword()).isNull();
+		final var violations = validator.validate(properties);
+
+		assertThat(violations)
+			.extracting(violation -> violation.getPropertyPath().toString())
+			.containsExactlyInAnyOrder("keyStoreAsBase64", "keyStorePassword");
+	}
+
+	@Test
+	void validate_withBlankKeystoreFields_reportsConstraintViolations() {
+		final var properties = new SSBTEKProperties(5, 30, "  ", "");
+
+		final var violations = validator.validate(properties);
+
+		assertThat(violations)
+			.extracting(violation -> violation.getPropertyPath().toString())
+			.containsExactlyInAnyOrder("keyStoreAsBase64", "keyStorePassword");
+	}
+
+	@Test
+	void validate_withPopulatedKeystoreFields_reportsNoViolations() {
+		final var properties = new SSBTEKProperties(5, 30, "base64data", "secret");
+
+		final var violations = validator.validate(properties);
+
+		assertThat(violations).isEmpty();
 	}
 
 	@Test
