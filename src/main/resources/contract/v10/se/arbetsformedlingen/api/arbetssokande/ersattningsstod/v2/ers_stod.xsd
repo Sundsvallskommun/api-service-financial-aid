@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://api.arbetsformedlingen.se/arbetssokande/ersattningsstod/v2"
+		   xmlns:api="http://api.arbetsformedlingen.se/arbetssokande/ersattningsstod/v2"
+		   xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xs:simpleType name="Organisationsnummer">
+		<xs:restriction base="xs:string">
+			<xs:minLength value="10" />
+			<xs:maxLength value="12" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Personnummer">
+		<xs:restriction base="xs:string">
+			<xs:length value="12" fixed="true" />
+			<xs:pattern value="[\d]{12}" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="FragaMeddelande">
+		<xs:sequence>
+			<xs:element name="Inkludera" type="api:Inkludera" minOccurs="0" />
+			<xs:element name="Fraga" type="api:Fraga" />
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SvarMeddelande">
+		<xs:sequence>
+			<xs:element name="Fraga" type="api:Fraga" />
+			<xs:element name="Svar" type="api:Svar" />
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Inkludera">
+		<xs:attribute name="ArbetssokandeInfo" type="xs:boolean" use="optional" />
+		<xs:attribute name="AkasseInfo" type="xs:boolean" use="optional" />
+		<xs:attribute name="BeslutInfo" type="xs:boolean" use="optional" />
+	</xs:complexType>
+	<xs:complexType name="Fraga">
+		<xs:sequence>
+			<xs:element name="Test" type="xs:boolean" minOccurs="0" />
+			<xs:element name="OrganisationsnummerForIngivare" type="api:Organisationsnummer" />
+			<xs:element name="NamnPaIngivare" type="xs:string" />
+			<xs:element name="KontonamnForHandlaggare" type="xs:string" />
+			<xs:element name="Referensnummer" type="xs:string" />
+			<xs:element name="From" type="xs:date" />
+			<xs:element name="Tom" type="xs:date" />
+			<xs:element name="SyfteMedFraga" type="xs:string" />
+			<xs:element name="LagParagraf" type="xs:string" />
+			<xs:element name="OrganisationsnummerForPersonuppgiftsbitrade" type="api:Organisationsnummer" minOccurs="0" />
+			<xs:element name="NamnPaPersonuppgiftsbitrade" type="xs:string" minOccurs="0" />
+			<xs:element name="IdentitetsbeteckningFysiskPerson" type="api:Personnummer" />
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Svar">
+		<xs:sequence>
+			<xs:element name="Schemaversion" type="xs:string" />
+			<xs:element name="Referensnummer" type="xs:string" />
+			<xs:element name="LagParagraf" type="xs:string" />
+			<xs:element name="IdentitetsbeteckningFysiskPerson" type="api:Personnummer" />
+			<xs:element name="Fornamn" type="xs:string" minOccurs="0" />
+			<xs:element name="Efternamn" type="xs:string" minOccurs="0" />
+			<xs:element name="Sekretessmarkering" type="xs:boolean" minOccurs="0" />
+			<xs:element name="ArbetssokandeInfo" type="api:ArbetssokandeInfo" minOccurs="0" />
+			<xs:element name="BeslutInfo" type="api:BeslutInfo" minOccurs="0" />
+			<xs:element name="Akassetillhorighet" type="xs:string" minOccurs="0" />
+			<xs:element name="StatusSokandeinformationKod" type="xs:int" />
+			<xs:element name="StatusSokandeinformationKodText" type="xs:string" />
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ArbetssokandeInfo">
+		<xs:sequence>
+			<xs:element name="Arbetssokande" type="xs:boolean" minOccurs="0" />
+			<xs:element name="ArbetssokandeSKAT" type="xs:normalizedString" minOccurs="0" />
+			<xs:element name="ArbetssokandeRegistrerad" type="xs:date" minOccurs="0" />
+			<xs:element name="ArbetssokandeOmfattning" type="xs:int" minOccurs="0" />
+			<xs:element name="ArbetssokandeAvaktualiserad" type="xs:date" minOccurs="0" />
+			<xs:element name="AktivetetsRapportDatum" type="api:AktivetetsRapportDatum" minOccurs="1" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="BeslutInfo">
+		<xs:sequence>
+			<xs:element name="EkonomiskaBeslut">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Beslut" minOccurs="0" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="ErsattningTyp" type="xs:string" />
+									<xs:element name="Omfattning" type="xs:int" />
+									<xs:element name="BeslutFrom" type="xs:date" />
+									<xs:element name="BeslutTom" type="xs:date" />
+									<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AktivetetsRapportDatum">
+		<xs:sequence>
+			<xs:element name="AktivitetsRapportMeddelande" type="xs:string" minOccurs="1" maxOccurs="1" />
+			<xs:element name="SenasteAktivitetsRapportDatum" type="xs:date" minOccurs="0" maxOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="FragaMeddelande" type="api:FragaMeddelande" />
+	<xs:element name="SvarMeddelande" type="api:SvarMeddelande" />
+</xs:schema>

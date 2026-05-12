@@ -10,4 +10,11 @@ openapi:
   version: '@project.version@'
 spring:
   application:
-    name: template
+    name: api-service-financial-aid
+integration:
+  ssbtek:
+    url: ${SSBTEK_URL:}
+    connect-timeout: 5
+    read-timeout: 30
+    key-store-as-base64: ${SSBTEK_KEYSTORE_BASE64:}
+    key-store-password: ${SSBTEK_KEYSTORE_PASSWORD:}

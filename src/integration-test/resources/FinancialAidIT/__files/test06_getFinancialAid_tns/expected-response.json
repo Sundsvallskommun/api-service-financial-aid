@@ -1,0 +1,29 @@
+{
+	"af": {},
+	"csn": {},
+	"fk": {},
+	"skv": {},
+	"so": {},
+	"tns": {
+		"resultat": "OK",
+		"fordonsinnehav": {
+			"fordon": [
+				{
+					"regnr": "ABC001",
+					"fabrikat": "Volvo",
+					"fordonsar": "2012",
+					"fordonsslag": "PERSONBIL",
+					"handelsbeteckning": "V70"
+				},
+				{
+					"regnr": "ABC002",
+					"fabrikat": "HONDA",
+					"fordonsar": "2001",
+					"fordonsslag": "MOTORCYKEL",
+					"handelsbeteckning": "SH300A"
+				}
+			]
+		}
+	},
+	"miv": {}
+}

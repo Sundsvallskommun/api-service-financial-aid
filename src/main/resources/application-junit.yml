@@ -3,4 +3,11 @@
 #========================================
 logging:
   level:
-    root: DEBUG
+    root: INFO
+integration:
+  ssbtek:
+    url: http://localhost/ssbtek
+    connect-timeout: 5
+    read-timeout: 30
+    key-store-as-base64: MFMCAQMwEQYJKoZIhvcNAQcBoAQEAjAAMDswHzAHBgUrDgMCGgQU0o3e1nOD1jqma6COJawQQIcxlFEEFDtiPZRyFqaEFlR8XmvTnil8BILYAgIH0A==
+    key-store-password: changeit

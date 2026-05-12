@@ -1,0 +1,30 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10"
+                                                xmlns:er="http://api.arbetsformedlingen.se/arbetssokande/ersattningsstod/v2">
+            <ssbt:svarsdata>
+                <ssbt:AF>
+                    <ssbt:data>
+                        <er:Svar>
+                            <er:Schemaversion>4.0</er:Schemaversion>
+                            <er:Referensnummer>AID00000001</er:Referensnummer>
+                            <er:IdentitetsbeteckningFysiskPerson>199001011234</er:IdentitetsbeteckningFysiskPerson>
+                            <er:Fornamn>Tolvan</er:Fornamn>
+                            <er:Efternamn>Tolvansson</er:Efternamn>
+                            <er:Sekretessmarkering>false</er:Sekretessmarkering>
+                            <er:ArbetssokandeInfo>
+                                <er:Arbetssokande>true</er:Arbetssokande>
+                                <er:ArbetssokandeSKAT>Anställd</er:ArbetssokandeSKAT>
+                                <er:ArbetssokandeRegistrerad>2016-11-18+01:00</er:ArbetssokandeRegistrerad>
+                                <er:ArbetssokandeOmfattning>100</er:ArbetssokandeOmfattning>
+                            </er:ArbetssokandeInfo>
+                            <er:Akassetillhorighet>Test ak</er:Akassetillhorighet>
+                            <er:StatusSokandeinformationKod>0</er:StatusSokandeinformationKod>
+                            <er:StatusSokandeinformationKodText>Frågan har behandlats normalt och ett giltigt svar har returnerats.</er:StatusSokandeinformationKodText>
+                        </er:Svar>
+                    </ssbt:data>
+                </ssbt:AF>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

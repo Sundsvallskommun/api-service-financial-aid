@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://schema.csn.se/v4.0/omstallningsstudiestod" xmlns:csnoss="http://schema.csn.se/v4.0/omstallningsstudiestod" elementFormDefault="qualified" xmlns:csngem="http://schema.csn.se/v4.0/csntyper" xml:lang="sv">
+	<xs:import namespace="http://schema.csn.se/v4.0/csntyper" schemaLocation="../csntyper/csntyper.xsd"/>
+
+	<xs:complexType name="arende">
+		<xs:sequence>
+			<xs:element name="stodform" maxOccurs="1" minOccurs="1" type="csngem:stodform">
+		
+			</xs:element>
+			<xs:element name="klartext" maxOccurs="1" minOccurs="1" type="csngem:klartext">
+		
+			</xs:element>
+			<xs:element name="status" maxOccurs="1" minOccurs="1" type="csngem:status">
+		
+			</xs:element>
+		
+			<xs:element name="soktaTider">
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="soktTid" type="csngem:Sokttid" maxOccurs="unbounded" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BeviljadeTider">
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="BeviljadTid" type="csngem:Beviljadtid" maxOccurs="unbounded" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UtbetalningsPlan">
+				<xs:complexType>
+					<xs:sequence minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Utbetalning" type="csngem:Utbetalning" maxOccurs="unbounded" minOccurs="0"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="lopnummer" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="3"/>
+					<xs:pattern value="[0-9]+"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

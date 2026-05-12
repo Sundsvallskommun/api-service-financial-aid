@@ -6,19 +6,27 @@
 		<artifactId>dept44-service-parent</artifactId>
 		<version>8.0.6</version>
 		<relativePath />
-		<!-- lookup parent from repository -->
+		<!-- lookup parent from a repository -->
 	</parent>
 	<groupId>se.sundsvall</groupId>
-	<artifactId>template-spring-boot</artifactId>
+	<artifactId>api-service-financial-aid</artifactId>
 	<version>1.0</version>
-	<name>template</name>
-	<properties />
+	<name>api-service-financial-aid</name>
+	<properties>
+		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
+		<jaxb-plugins.version>4.0.12</jaxb-plugins.version>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>se.sundsvall.dept44</groupId>
+			<artifactId>dept44-starter-feign</artifactId>
 		</dependency>
 		<!-- Test -->
 		<dependency>
@@ -27,4 +35,71 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>ssbtek/**</exclude>
+						<exclude>se/sundsvall/financialaid/Application.class</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<nonFilteredFileExtensions>
+						<nonFilteredFileExtension>xsd</nonFilteredFileExtension>
+						<nonFilteredFileExtension>wsdl</nonFilteredFileExtension>
+						<nonFilteredFileExtension>doc</nonFilteredFileExtension>
+					</nonFilteredFileExtensions>
+				</configuration>
+			</plugin>
+			<!-- Generate java from wsdl -->
+			<plugin>
+				<groupId>org.jvnet.jaxb</groupId>
+				<artifactId>jaxb-maven-plugin</artifactId>
+				<version>${jaxb-plugins.version}</version>
+				<configuration>
+					<bindingDirectory>${project.basedir}/src/main/resources/contract/v10</bindingDirectory>
+					<extension>true</extension>
+					<args>
+						<arg>-wsdl</arg>
+						<arg>-Xfluent-api</arg>
+						<arg>-XautoNameResolution</arg>
+					</args>
+					<plugins>
+						<plugin>
+							<groupId>org.jvnet.jaxb</groupId>
+							<artifactId>jaxb-plugins</artifactId>
+							<version>${jaxb-plugins.version}</version>
+						</plugin>
+					</plugins>
+					<encoding>UTF-8</encoding>
+				</configuration>
+				<executions>
+					<execution>
+						<id>ssbtek</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<generatePackage>ssbtek</generatePackage>
+							<generateDirectory>${generated-sources-path}/ssbtek</generateDirectory>
+							<schemaDirectory>${project.basedir}/src/main/resources/contract/v10/se/forsakringskassan/schema/integration/ssbt/_10</schemaDirectory>
+							<schemaIncludes>
+								<include>Sammansatt_Bastjanst_v10.wsdl</include>
+							</schemaIncludes>
+							<bindingIncludes>
+								<include>binding.xml</include>
+							</bindingIncludes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

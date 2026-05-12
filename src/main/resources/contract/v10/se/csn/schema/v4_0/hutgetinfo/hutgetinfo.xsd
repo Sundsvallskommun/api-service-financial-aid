@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.example.org/v4.0/hutgetinfo" xmlns:csn="http://schema.csn.se/v4.0/hutgetinfo" xmlns:csngem="http://schema.csn.se/v4.0/csntyper" targetNamespace="http://schema.csn.se/v4.0/hutgetinfo" elementFormDefault="qualified" xml:lang="sv">
+  <xs:import namespace="http://schema.csn.se/v4.0/csntyper" schemaLocation="../csntyper/csntyper.xsd"/>
+  <xs:element name="CSNSvarHut">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Personer" minOccurs="1" maxOccurs="1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Person" minOccurs="1" maxOccurs="1">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Hemutrustningslan">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element name="Arenden">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element name="Arende" minOccurs="0" maxOccurs="10">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element name="stodform" type="csngem:stodform"/>
+                                      <xs:element name="klartext" type="csngem:klartext"/>
+                                      <xs:element name="status" type="csngem:status"/>
+                                      <xs:element name="Utbetalningsplan">
+                                        <xs:complexType>
+                                          <xs:sequence>
+                                            <xs:element name="Utbetalning" minOccurs="0" maxOccurs="50">
+                                              <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="utbetdatum" type="csngem:datum"/>
+                                                  <xs:element name="utbetstatus" type="csngem:utbetstatus"/>
+                                                  <xs:element name="Beloppen">
+                                                    <xs:complexType>
+                                                      <xs:sequence>
+                                                        <xs:element name="startdatum" type="csngem:datum"/>
+                                                        <xs:element name="slutdatum" type="csngem:datum"/>
+                                                        <xs:element name="Belopp" minOccurs="0" maxOccurs="10">
+                                                          <xs:complexType>
+                                                            <xs:sequence>
+                                                              <xs:element name="beloppstyp" type="csngem:beloppstyp"/>
+                                                              <xs:element name="klartext" type="csngem:klartext"/>
+                                                              <xs:element name="belopp" type="csngem:belopp"/>
+                                                            </xs:sequence>
+                                                          </xs:complexType>
+                                                        </xs:element>
+                                                      </xs:sequence>
+                                                    </xs:complexType>
+                                                  </xs:element>
+                                                  <xs:element name="totbelopp" type="csngem:belopp"/>
+                                                </xs:sequence>
+                                              </xs:complexType>
+                                            </xs:element>
+                                          </xs:sequence>
+                                        </xs:complexType>
+                                      </xs:element>
+                                    </xs:sequence>
+                                    <xs:attribute name="lopnummer" use="required">
+                                      <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                          <xs:maxLength value="7"/>
+                                          <xs:pattern value="[0-9]+"/>
+                                        </xs:restriction>
+                                      </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="medlanare">
+                                      <xs:simpleType>
+                                        <xs:restriction base="xs:string">
+                                          <xs:maxLength value="12"/>
+                                        </xs:restriction>
+                                      </xs:simpleType>
+                                    </xs:attribute>
+                                  </xs:complexType>
+                                </xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                  <xs:attribute name="personnummer" use="required">
+                    <xs:simpleType>
+                      <xs:restriction base="csngem:personnummer"/>
+                    </xs:simpleType>
+                  </xs:attribute>
+                  <xs:attribute name="status" type="csngem:personstatus"/>
+                  <xs:attribute name="sekretess" type="csngem:sekretess"/>
+                  <xs:attribute name="sekel" type="csngem:sekel"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

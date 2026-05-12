@@ -1,0 +1,130 @@
+{
+	"af": {
+		"Svar": {
+			"Schemaversion": "4.0",
+			"Referensnummer": "AID00000001",
+			"IdentitetsbeteckningFysiskPerson": "199001011234",
+			"Fornamn": "Tolvan",
+			"Efternamn": "Tolvansson",
+			"Sekretessmarkering": "false",
+			"ArbetssokandeInfo": {
+				"Arbetssokande": "true",
+				"ArbetssokandeSKAT": "Anställd",
+				"ArbetssokandeRegistrerad": "2016-11-18+01:00",
+				"ArbetssokandeOmfattning": "100"
+			},
+			"Akassetillhorighet": "Test ak",
+			"StatusSokandeinformationKod": "0",
+			"StatusSokandeinformationKodText": "Frågan har behandlats normalt och ett giltigt svar har returnerats."
+		}
+	},
+	"csn": {
+		"schemaVersion": "3.0",
+		"GemensamtSvarEkbistand": {
+			"Resultat": {
+				"ResultatKod": "0",
+				"ResultatText": "Allt OK, inget att rapportera"
+			}
+		},
+		"Personer": {
+			"Person": {
+				"Status": "          ",
+				"personnummer": "9001011234",
+				"sekel": "19",
+				"sekretess": "  ",
+				"Studiestodstypforteckning": {
+					"studiemedel": "0",
+					"studiehjalp": "0",
+					"hemutrustningslan": "0",
+					"studiestartsstod": "0"
+				}
+			}
+		}
+	},
+	"fk": {
+		"utlamnare": [
+			{
+				"utlamnare": {
+					"kod": "FK",
+					"namn": "Försäkringskassan"
+				},
+				"tillstand": {
+					"kod": "OK",
+					"beskrivning": "Tillgänglig"
+				}
+			}
+		]
+	},
+	"skv": {
+		"PersonuppgiftLista": {
+			"Personuppgift": {
+				"IdentitetsbeteckningFysiskPerson": "199001011234",
+				"Fornamn": "Berit",
+				"Efternamn": "Berg",
+				"StatusPersonuppgiftKod": "999",
+				"Kapitaluppgift": {
+					"Taxeringsar": "2001",
+					"SummaIntakterPaKapital": "12345",
+					"OverskottPaKapital": "666"
+				}
+			}
+		}
+	},
+	"so": {
+		"OrganisationsnummerIngivare": "162000000001",
+		"NamnIngivare": "Testkommun",
+		"KontonamnHandlaggare": "HL000001",
+		"Referensnummer": "AID00000001",
+		"From": "2016-01-01",
+		"Tom": "2017-01-01",
+		"IdentificationNumber": "199001011234",
+		"ArbetsloshetsersattningLista": {
+			"Arbetsloshetsersattning": {
+				"SvarandeOrganisation": "Testorganisation",
+				"StatusSvarandeOrganisation": "all clear",
+				"Utbetalningar": {
+					"Utbetalningsdatum": "2013-11-23",
+					"NettoEfterSkatt": "1250.50",
+					"NettoEfterAvdrag": "1250.50",
+					"Ersattningsdagar": "2",
+					"AvserFrom": "2013-11-03",
+					"AvserTom": "2013-11-03"
+				}
+			}
+		}
+	},
+	"tns": {
+		"resultat": "OK",
+		"fordonsinnehav": {
+			"fordon": {
+				"regnr": "ABC001",
+				"fabrikat": "Volvo",
+				"fordonsar": "2012",
+				"fordonsslag": "PERSONBIL",
+				"handelsbeteckning": "V70"
+			}
+		}
+	},
+	"miv": {
+		"response": {
+			"korrelationsid": "00000000-0000-0000-0000-000000000001",
+			"correlationid": "00000000-0000-0000-0000-000000000001",
+			"efternamn": "Tolvansson",
+			"fornamn": "Tolvan",
+			"personnummer": "199001011234",
+			"svarCollection": {
+				"svar": {
+					"ansokningsdatum": "1997-09-12+02:00",
+					"arendeTyp": "UAT",
+					"arendeTypNamn": "UPPEHÅLLS- OCH ARBETSTILLSTÅND",
+					"beslutsKod": "BEV",
+					"beslutsKodNamn": "ANSÖKAN BEVILJAS",
+					"beslutsTyp": "PUT",
+					"beslutsTypNamn": "PERMANENT UPPEHÅLLSTILLSTÅND",
+					"beslutsdatum": "1998-05-12+02:00",
+					"giltighetstid": "PERMANENT"
+				}
+			}
+		}
+	}
+}

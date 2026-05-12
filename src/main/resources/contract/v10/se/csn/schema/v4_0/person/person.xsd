@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:csnpers="http://schema.csn.se/v4.0/person" xmlns:csnsm="http://schema.csn.se/v4.0/studiemedel" xmlns:csnsh="http://schema.csn.se/v4.0/studiehjalp" xmlns:csnhut="http://schema.csn.se/v4.0/hemutrustningslan" xmlns:csngem="http://schema.csn.se/v4.0/csntyper" xmlns:csnsss="http://schema.csn.se/v4.0/studiestartsstod" xmlns:csnoss="http://schema.csn.se/v4.0/omstallningsstudiestod" targetNamespace="http://schema.csn.se/v4.0/person" elementFormDefault="qualified" xml:lang="sv">
+  <xs:import namespace="http://schema.csn.se/v4.0/csntyper" schemaLocation="../csntyper/csntyper.xsd"/>
+  <xs:import namespace="http://schema.csn.se/v4.0/studiemedel" schemaLocation="../studiemedel/studiemedel.xsd"/>
+  <xs:import namespace="http://schema.csn.se/v4.0/studiehjalp" schemaLocation="../studiehjalp/studiehjalp.xsd"/>
+  <xs:import namespace="http://schema.csn.se/v4.0/hemutrustningslan" schemaLocation="../hemutrustningslan/hemutrustningslan.xsd"/>
+  <xs:import namespace="http://schema.csn.se/v4.0/studiestartsstod" schemaLocation="../studiestartsstod/studiestartsstod.xsd"/>
+  <xs:import namespace="http://schema.csn.se/v4.0/omstallningsstudiestod" schemaLocation="../omstallningsstudiestod/omstallningsstudiestod.xsd"/>
+  <xs:complexType name="Person">
+    <xs:sequence>
+      <xs:element name="Studiestodstypforteckning" type="csngem:studiestodstypforteckning"/>
+      <xs:element name="Studiemedel">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Arenden" minOccurs="0" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Arende" type="csnsm:arende" minOccurs="0" maxOccurs="10"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Studiehjalp">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Arenden" minOccurs="0" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Arende" type="csnsh:arende" minOccurs="0" maxOccurs="10"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="HemutrustningsLan">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Arenden" minOccurs="0" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Arende" type="csnhut:arende" minOccurs="0" maxOccurs="10"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Studiestartsstod">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Arenden" minOccurs="0" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Arende" type="csnsss:arende" minOccurs="0" maxOccurs="10"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="Omstallningsstudiestod">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="Arenden" minOccurs="0" maxOccurs="1">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Arende" type="csnoss:arende" minOccurs="0" maxOccurs="10"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="personnummer" use="required">
+      <xs:simpleType>
+        <xs:restriction base="csngem:personnummer"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Status" type="csngem:personstatus"/>
+    <xs:attribute name="sekretess" type="csngem:sekretess"/>
+    <xs:attribute name="sekel" type="csngem:sekel"/>
+  </xs:complexType>
+</xs:schema>

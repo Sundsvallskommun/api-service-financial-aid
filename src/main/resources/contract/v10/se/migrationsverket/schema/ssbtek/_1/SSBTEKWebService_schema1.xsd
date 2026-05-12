@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://schema.migrationsverket.se/ssbtek/1/" xmlns:miv="http://schema.migrationsverket.se/ssbtek/1/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="SSBTEKSoapException" nillable="true" type="miv:fkServiceFault"/>
+
+  <xs:element name="findByPersonnummer" type="miv:findByPersonnummer"/>
+
+  <xs:element name="findByPersonnummerResponse" type="miv:findByPersonnummerResponse"/>
+
+  <xs:complexType name="findByPersonnummer">
+    <xs:sequence>
+      <xs:element name="query" type="miv:fkQuery"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fkQuery">
+    <xs:sequence>
+      <xs:element name="korrelationsid" type="xs:string" minOccurs="0"/>
+      <xs:element name="personnummer" type="xs:string"/>
+      <xs:element name="ingivare" type="miv:fkQueryIngivare"/>
+    </xs:sequence>
+  </xs:complexType>
+  
+  <xs:complexType name="fkQueryIngivare">
+    <xs:sequence>
+      <xs:element name="handlaggare" type="xs:string"/>
+      <xs:element name="namn" type="xs:string" minOccurs="0"/>
+      <xs:element name="organisationsnummer" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>  
+
+  <xs:complexType name="findByPersonnummerResponse">
+    <xs:sequence>
+      <xs:element name="response" type="miv:fkResponse" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fkResponse">
+    <xs:sequence>
+      <xs:element name="korrelationsid" type="xs:string" minOccurs="0"/>
+	  <xs:element name="correlationid" type="xs:string" minOccurs="1"/>
+      <xs:element name="efternamn" type="xs:string" minOccurs="0"/>
+      <xs:element name="fornamn" type="xs:string" minOccurs="0"/>
+      <xs:element name="hemland" type="xs:string" minOccurs="0"/>
+      <xs:element name="inresedatum" type="xs:date" minOccurs="0"/>
+      <xs:element name="personnummer" type="xs:string" minOccurs="0"/>
+      <xs:element name="svarCollection" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="svar" type="miv:fkSvar" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fkSvar">
+    <xs:sequence>
+      <xs:element name="anledning" type="xs:string" minOccurs="0"/>
+      <xs:element name="anledningNamn" type="xs:string" minOccurs="0"/>
+      <xs:element name="ansokningsdatum" type="xs:date" minOccurs="0"/>
+      <xs:element name="arendeTyp" type="xs:string" minOccurs="0"/>
+      <xs:element name="arendeTypNamn" type="xs:string" minOccurs="0"/>
+      <xs:element name="beslutsKod" type="xs:string" minOccurs="0"/>
+      <xs:element name="beslutsKodNamn" type="xs:string" minOccurs="0"/>
+      <xs:element name="beslutsTyp" type="xs:string" minOccurs="0"/>
+      <xs:element name="beslutsTypNamn" type="xs:string" minOccurs="0"/>
+      <xs:element name="beslutsdatum" type="xs:date" minOccurs="0"/>
+      <xs:element name="fromDatum" type="xs:date" minOccurs="0"/>
+      <xs:element name="giltighetstid" type="miv:giltighetstid" minOccurs="0"/>
+      <xs:element name="tomDatum" type="xs:date" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="fkServiceFault">
+    <xs:sequence>
+      <xs:element name="faultCode" type="xs:string" minOccurs="0"/>
+      <xs:element name="faultString" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="giltighetstid">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PERMANENT"/>
+      <xs:enumeration value="TIDBEGRANSAT"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

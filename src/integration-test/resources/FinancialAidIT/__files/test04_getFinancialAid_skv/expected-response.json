@@ -1,0 +1,23 @@
+{
+	"af": {},
+	"csn": {},
+	"fk": {},
+	"skv": {
+		"PersonuppgiftLista": {
+			"Personuppgift": {
+				"IdentitetsbeteckningFysiskPerson": "199001011234",
+				"Fornamn": "Berit",
+				"Efternamn": "Berg",
+				"StatusPersonuppgiftKod": "999",
+				"Kapitaluppgift": {
+					"Taxeringsar": "2001",
+					"SummaIntakterPaKapital": "12345",
+					"OverskottPaKapital": "666"
+				}
+			}
+		}
+	},
+	"so": {},
+	"tns": {},
+	"miv": {}
+}

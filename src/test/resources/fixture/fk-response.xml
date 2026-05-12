@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10">
+            <ssbt:svarsdata>
+                <ssbt:FK>
+                    <ssbt:data>
+                        <ssbt:lefiJsonSvar>eyJ1dGxhbW5hcmUiOlt7InV0bGFtbmFyZSI6eyJrb2QiOiJGSyIsIm5hbW4iOiJGw7Zyc8Oka3Jpbmdza2Fzc2FuIn0sInRpbGxzdGFuZCI6eyJrb2QiOiJPSyIsImJlc2tyaXZuaW5nIjoiVGlsbGfDpG5nbGlnIn19XX0=</ssbt:lefiJsonSvar>
+                    </ssbt:data>
+                </ssbt:FK>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

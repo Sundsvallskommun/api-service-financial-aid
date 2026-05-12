@@ -1,0 +1,22 @@
+{
+	"af": {},
+	"csn": {},
+	"fk": {
+		"utlamnare": [
+			{
+				"utlamnare": {
+					"kod": "FK",
+					"namn": "Försäkringskassan"
+				},
+				"tillstand": {
+					"kod": "OK",
+					"beskrivning": "Tillgänglig"
+				}
+			}
+		]
+	},
+	"skv": {},
+	"so": {},
+	"tns": {},
+	"miv": {}
+}

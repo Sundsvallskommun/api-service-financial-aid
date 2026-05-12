@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10">
+            <ssbt:svarsdata>
+                <ssbt:CSN>
+                    <ssbt:data>
+                        <ssbt:svar>PENTTlN2YXIgc2NoZW1hVmVyc2lvbj0iMy4wIgogICAgICAgICB4bWxucz0iaHR0cDovL3NjaGVtYS5jc24uc2UvdjMuMC9rb21tdW5mcmFnYSIKICAgICAgICAgeG1sbnM6bnM1PSJodHRwOi8vc2NoZW1hLmNzbi5zZS92My4wL3BlcnNvbiIKICAgICAgICAgeG1sbnM6bnM0PSJodHRwOi8vc2NoZW1hLmNzbi5zZS92My4wL2NzbnR5cGVyIj4KICAgIDxHZW1lbnNhbXRTdmFyRWtiaXN0YW5kPgogICAgICAgIDxSZXN1bHRhdD4KICAgICAgICAgICAgPFJlc3VsdGF0S29kPjA8L1Jlc3VsdGF0S29kPgogICAgICAgICAgICA8UmVzdWx0YXRUZXh0PkFsbHQgT0ssIGluZ2V0IGF0dCByYXBwb3J0ZXJhPC9SZXN1bHRhdFRleHQ+CiAgICAgICAgPC9SZXN1bHRhdD4KICAgIDwvR2VtZW5zYW10U3ZhckVrYmlzdGFuZD4KICAgIDxHZW1lbnNhbXRGcmFnYUVrYmlzdGFuZC8+CiAgICA8UGVyc29uZXI+CiAgICAgICAgPFBlcnNvbiBwZXJzb25udW1tZXI9IjkwMDEwMTEyMzQiIFN0YXR1cz0iICAgICAgICAgICIgc2VrcmV0ZXNzPSIgICIgc2VrZWw9IjE5Ij4KICAgICAgICAgICAgPG5zNTpTdHVkaWVzdG9kc3R5cGZvcnRlY2tuaW5nPgogICAgICAgICAgICAgICAgPG5zNDpzdHVkaWVtZWRlbD4wPC9uczQ6c3R1ZGllbWVkZWw+CiAgICAgICAgICAgICAgICA8bnM0OnN0dWRpZWhqYWxwPjA8L25zNDpzdHVkaWVoamFscD4KICAgICAgICAgICAgICAgIDxuczQ6aGVtdXRydXN0bmluZ3NsYW4+MDwvbnM0OmhlbXV0cnVzdG5pbmdzbGFuPgogICAgICAgICAgICAgICAgPG5zNDpzdHVkaWVzdGFydHNzdG9kPjA8L25zNDpzdHVkaWVzdGFydHNzdG9kPgogICAgICAgICAgICA8L25zNTpTdHVkaWVzdG9kc3R5cGZvcnRlY2tuaW5nPgogICAgICAgICAgICA8bnM1OlN0dWRpZW1lZGVsLz4KICAgICAgICAgICAgPG5zNTpTdHVkaWVoamFscC8+CiAgICAgICAgICAgIDxuczU6SGVtdXRydXN0bmluZ3NMYW4vPgogICAgICAgICAgICA8bnM1OlN0dWRpZXN0YXJ0c3N0b2QvPgogICAgICAgIDwvUGVyc29uPgogICAgPC9QZXJzb25lcj4KPC9DU05TdmFyPgo=</ssbt:svar>
+                    </ssbt:data>
+                </ssbt:CSN>
+            </ssbt:svarsdata>
+        </ssbt:hamtaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>
