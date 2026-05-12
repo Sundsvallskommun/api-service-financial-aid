@@ -1,4 +1,7 @@
 {
+	"af": {},
+	"csn": {},
+	"fk": {},
 	"skv": {
 		"PersonuppgiftLista": {
 			"Personuppgift": {
@@ -13,5 +16,8 @@
 				}
 			}
 		}
-	}
+	},
+	"so": {},
+	"tns": {},
+	"miv": {}
 }

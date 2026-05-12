@@ -28,17 +28,17 @@ public final class Constants {
 	// LEFI JSON-mall; placeholder: personnummer, fromDatum, tomDatum
 	public static final String LEFI_JSON_TEMPLATE = """
 		{
-			"personnummer": "%s",
-			"period": {
-				"from": "%s",
-				"tom": "%s"
-			},
-			"formansinformation": ["FK:ABB"],
-			"ansprak": ["PM:AP"],
-			"beslut": ["PM:AP"],
-			"preliminaraUtbetalningar": ["FK:ABB"],
-			"utbetalningar": ["FK:ABB"],
-			"ovrigInformation": ["FK:GEPI"]
+		  "personnummer": "%s",
+		  "period": {
+		    "from": "%s",
+		    "tom": "%s"
+		  },
+		  "formansinformation": ["FK:ABB"],
+		  "ansprak": ["PM:AP"],
+		  "beslut": ["PM:AP"],
+		  "preliminaraUtbetalningar": ["FK:ABB"],
+		  "utbetalningar": ["FK:ABB"],
+		  "ovrigInformation": ["FK:GEPI"]
 		}
 		""";
 }

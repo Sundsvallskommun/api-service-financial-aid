@@ -2,6 +2,7 @@ package se.sundsvall.financialaid.integration.ssbtek;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,7 +51,7 @@ class SSBTEKIntegrationTest {
 			Constants.AGENCY_SO,
 			Constants.AGENCY_TNS,
 			Constants.AGENCY_MIV);
-		assertThat(result).allSatisfy((key, value) -> assertThat(value).isNull());
+		assertThat(result).allSatisfy((key, value) -> assertThat(value).isEqualTo(Map.of()));
 	}
 
 	@Test

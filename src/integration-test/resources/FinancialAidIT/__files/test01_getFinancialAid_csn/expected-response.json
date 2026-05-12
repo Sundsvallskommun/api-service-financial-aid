@@ -1,4 +1,5 @@
 {
+	"af": {},
 	"csn": {
 		"schemaVersion": "3.0",
 		"GemensamtSvarEkbistand": {
@@ -21,5 +22,10 @@
 				}
 			}
 		}
-	}
+	},
+	"fk": {},
+	"skv": {},
+	"so": {},
+	"tns": {},
+	"miv": {}
 }

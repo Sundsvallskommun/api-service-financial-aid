@@ -1,4 +1,8 @@
 {
+	"af": {},
+	"csn": {},
+	"fk": {},
+	"skv": {},
 	"so": {
 		"OrganisationsnummerIngivare": "162000000001",
 		"NamnIngivare": "Testkommun",
@@ -21,5 +25,7 @@
 				}
 			}
 		}
-	}
+	},
+	"tns": {},
+	"miv": {}
 }

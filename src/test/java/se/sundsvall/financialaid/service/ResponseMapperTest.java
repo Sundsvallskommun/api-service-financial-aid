@@ -39,12 +39,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapCsn_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapCsn(null)).isNull();
+			assertThat(ResponseMapper.mapCsn(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapCsn_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapCsn(new CsnSvar())).isNull();
+			assertThat(ResponseMapper.mapCsn(new CsnSvar())).isEqualTo(Map.of());
 		}
 
 		@Test
@@ -77,12 +77,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapFk_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapFk(null)).isNull();
+			assertThat(ResponseMapper.mapFk(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapFk_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapFk(new ForsakringskassanSvar())).isNull();
+			assertThat(ResponseMapper.mapFk(new ForsakringskassanSvar())).isEqualTo(Map.of());
 		}
 
 		@Test
@@ -129,12 +129,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapAf_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapAf(null)).isNull();
+			assertThat(ResponseMapper.mapAf(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapAf_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapAf(new ArbetsformedlingenSvar())).isNull();
+			assertThat(ResponseMapper.mapAf(new ArbetsformedlingenSvar())).isEqualTo(Map.of());
 		}
 
 		@Test
@@ -170,12 +170,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapSkv_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapSkv(null)).isNull();
+			assertThat(ResponseMapper.mapSkv(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapSkv_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapSkv(new SkatteverketSvar())).isNull();
+			assertThat(ResponseMapper.mapSkv(new SkatteverketSvar())).isEqualTo(Map.of());
 		}
 
 		@Test
@@ -202,12 +202,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapSo_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapSo(null)).isNull();
+			assertThat(ResponseMapper.mapSo(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapSo_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapSo(new AkassornasSamorganisationSvar())).isNull();
+			assertThat(ResponseMapper.mapSo(new AkassornasSamorganisationSvar())).isEqualTo(Map.of());
 		}
 
 		@Test
@@ -242,12 +242,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapTns_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapTns(null)).isNull();
+			assertThat(ResponseMapper.mapTns(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapTns_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapTns(new TransportstyrelsenSvar())).isNull();
+			assertThat(ResponseMapper.mapTns(new TransportstyrelsenSvar())).isEqualTo(Map.of());
 		}
 
 		@Test
@@ -284,12 +284,12 @@ class ResponseMapperTest {
 
 		@Test
 		void mapMiv_withNullResponse_shouldReturnNull() {
-			assertThat(ResponseMapper.mapMiv(null)).isNull();
+			assertThat(ResponseMapper.mapMiv(null)).isEqualTo(Map.of());
 		}
 
 		@Test
 		void mapMiv_withNullData_shouldReturnNull() {
-			assertThat(ResponseMapper.mapMiv(new MigrationsverketSvar())).isNull();
+			assertThat(ResponseMapper.mapMiv(new MigrationsverketSvar())).isEqualTo(Map.of());
 		}
 
 		@Test

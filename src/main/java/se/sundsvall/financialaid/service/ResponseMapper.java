@@ -25,7 +25,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapCsn(final CsnSvar csnResponse) {
 		if (csnResponse == null || csnResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		return XmlToJsonUtil.convert(csnResponse.getData().getSvar());
 	}
@@ -36,7 +36,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapFk(final ForsakringskassanSvar fkResponse) {
 		if (fkResponse == null || fkResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		try {
 			return OBJECT_MAPPER.readValue(
@@ -53,7 +53,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapAf(final ArbetsformedlingenSvar afResponse) {
 		if (afResponse == null || afResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		return XmlToJsonUtil.convertJaxb(afResponse.getData());
 	}
@@ -64,7 +64,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapSkv(final SkatteverketSvar skvResponse) {
 		if (skvResponse == null || skvResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		return XmlToJsonUtil.convert(skvResponse.getData().getSvar());
 	}
@@ -75,7 +75,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapSo(final AkassornasSamorganisationSvar soResponse) {
 		if (soResponse == null || soResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		return XmlToJsonUtil.convertJaxb(soResponse.getData());
 	}
@@ -86,7 +86,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapTns(final TransportstyrelsenSvar tnsResponse) {
 		if (tnsResponse == null || tnsResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		return XmlToJsonUtil.convertJaxb(tnsResponse.getData());
 	}
@@ -97,7 +97,7 @@ public final class ResponseMapper {
 	 */
 	public static Map<String, Object> mapMiv(final MigrationsverketSvar mivResponse) {
 		if (mivResponse == null || mivResponse.getData() == null) {
-			return null;
+			return Map.of();
 		}
 		return XmlToJsonUtil.convertJaxb(mivResponse.getData());
 	}

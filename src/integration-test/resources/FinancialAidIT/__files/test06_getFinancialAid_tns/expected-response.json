@@ -1,4 +1,9 @@
 {
+	"af": {},
+	"csn": {},
+	"fk": {},
+	"skv": {},
+	"so": {},
 	"tns": {
 		"resultat": "OK",
 		"fordonsinnehav": {
@@ -19,5 +24,6 @@
 				}
 			]
 		}
-	}
+	},
+	"miv": {}
 }
