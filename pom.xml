@@ -14,7 +14,7 @@
 	<name>api-service-financial-aid</name>
 	<properties>
 		<generated-sources-path>${project.build.directory}/generated-sources</generated-sources-path>
-		<jaxb-plugins.version>4.0.12</jaxb-plugins.version>
+		<jaxb-plugins.version>4.0.14</jaxb-plugins.version>
 	</properties>
 	<dependencies>
 		<dependency>
