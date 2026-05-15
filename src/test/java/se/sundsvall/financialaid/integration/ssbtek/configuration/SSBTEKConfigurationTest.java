@@ -1,6 +1,7 @@
 package se.sundsvall.financialaid.integration.ssbtek.configuration;
 
 import feign.Feign;
+import feign.Logger;
 import feign.Request;
 import feign.RequestTemplate;
 import feign.Response;
@@ -19,6 +20,8 @@ import java.util.Base64;
 import java.util.HashMap;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import se.sundsvall.dept44.problem.ThrowableProblem;
 import se.sundsvall.financialaid.integration.ssbtek.configuration.SSBTEKConfiguration.SOAPFaultErrorDecoder;
 import se.sundsvall.financialaid.integration.ssbtek.configuration.SSBTEKConfiguration.SSBTEKSoapDecoder;
@@ -34,6 +37,8 @@ import static org.springframework.http.HttpStatus.BAD_GATEWAY;
 
 class SSBTEKConfigurationTest {
 
+	private static final String PASSWORD = "changeit";
+	private static final String UPSTREAM_LEAK_MARKER = "UPSTREAM_LEAK_MARKER";
 	private static final String SOAP_FAULT_BODY = """
 		<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
 			<soap:Body>
@@ -60,9 +65,8 @@ class SSBTEKConfigurationTest {
 
 		@Test
 		void feignBuilderCustomizer_withValidKeystore_returnsCustomizerAndAppliesMtlsClient() throws Exception {
-			final var password = "changeit";
-			final var keystoreBase64 = createEmptyPkcs12KeystoreAsBase64(password);
-			final var properties = new SSBTEKProperties(5, 30, keystoreBase64, password);
+			final var keystoreBase64 = createEmptyPkcs12KeystoreAsBase64();
+			final var properties = new SSBTEKProperties(5, 30, keystoreBase64, PASSWORD);
 
 			final var customizer = config.feignBuilderCustomizer(properties);
 
@@ -84,12 +88,31 @@ class SSBTEKConfigurationTest {
 				.isInstanceOf(IllegalStateException.class);
 		}
 
-		private static String createEmptyPkcs12KeystoreAsBase64(final String password) throws Exception {
+		private static String createEmptyPkcs12KeystoreAsBase64() throws Exception {
 			final var keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
-			keyStore.load(null, password.toCharArray());
+			keyStore.load(null, PASSWORD.toCharArray());
 			final var out = new ByteArrayOutputStream();
-			keyStore.store(out, password.toCharArray());
+			keyStore.store(out, PASSWORD.toCharArray());
 			return Base64.getEncoder().encodeToString(out.toByteArray());
+		}
+	}
+
+	@Nested
+	class FeignLoggerLevelTest {
+
+		@Test
+		void ssbtekFeignLoggerLevel_returnsNone() {
+			final var config = new SSBTEKConfiguration();
+
+			assertThat(config.ssbtekFeignLoggerLevel()).isEqualTo(Logger.Level.NONE);
+		}
+
+		@Test
+		void ssbtekFeignLoggerLevel_isAnnotatedAsPrimaryBean() throws NoSuchMethodException {
+			final var method = SSBTEKConfiguration.class.getDeclaredMethod("ssbtekFeignLoggerLevel");
+
+			assertThat(method.isAnnotationPresent(Bean.class)).isTrue();
+			assertThat(method.isAnnotationPresent(Primary.class)).isTrue();
 		}
 	}
 
@@ -99,31 +122,33 @@ class SSBTEKConfigurationTest {
 		private final SOAPFaultErrorDecoder decoder = new SOAPFaultErrorDecoder();
 
 		@Test
-		void decode_withSoapFault_returnsBadGatewayProblem() {
+		void decode_withSoapFault_returnsBadGatewayProblemWithSanitizedDetail() {
 			final var response = responseWithBody(SOAP_FAULT_BODY);
 
 			final var result = decoder.decode("methodKey", response);
 
 			assertThat(result).isInstanceOf(ThrowableProblem.class);
 			assertThat(((ThrowableProblem) result).getStatus().value()).isEqualTo(BAD_GATEWAY.value());
-			assertThat(result.getMessage()).contains("Backend exploded");
+			assertThat(result.getMessage()).contains(SSBTEKConfiguration.SANITIZED_DETAIL);
+			assertThat(result.getMessage()).doesNotContain("Backend exploded");
 		}
 
 		@Test
-		void decode_withoutSoapFault_returnsProblemWithReason() {
-			final var response = responseWithBody(SOAP_SUCCESS_BODY, 502, "Bad Gateway");
+		void decode_withoutSoapFault_returnsSanitizedProblem() {
+			final var response = responseWithBody(SOAP_SUCCESS_BODY, 502, UPSTREAM_LEAK_MARKER);
 
 			final var result = decoder.decode("methodKey", response);
 
 			assertThat(result).isInstanceOf(ThrowableProblem.class);
-			assertThat(result.getMessage()).contains("Bad Gateway");
+			assertThat(result.getMessage()).contains(SSBTEKConfiguration.SANITIZED_DETAIL);
+			assertThat(result.getMessage()).doesNotContain(UPSTREAM_LEAK_MARKER);
 		}
 
 		@Test
-		void decode_withNullBody_returnsProblemWithReason() {
+		void decode_withNullBody_returnsSanitizedProblem() {
 			final var response = Response.builder()
 				.status(500)
-				.reason("Internal Server Error")
+				.reason(UPSTREAM_LEAK_MARKER)
 				.request(stubRequest())
 				.headers(new HashMap<>())
 				.build();
@@ -131,16 +156,18 @@ class SSBTEKConfigurationTest {
 			final var result = decoder.decode("methodKey", response);
 
 			assertThat(result).isInstanceOf(ThrowableProblem.class);
-			assertThat(result.getMessage()).contains("Internal Server Error");
+			assertThat(result.getMessage()).contains(SSBTEKConfiguration.SANITIZED_DETAIL);
+			assertThat(result.getMessage()).doesNotContain(UPSTREAM_LEAK_MARKER);
 		}
 
 		@Test
-		void decode_withMalformedXml_returnsProblemFromCatchBranch() {
+		void decode_withMalformedXml_returnsSanitizedProblem() {
 			final var response = responseWithBody("not xml at all");
 
 			final var result = decoder.decode("methodKey", response);
 
 			assertThat(result).isInstanceOf(ThrowableProblem.class);
+			assertThat(result.getMessage()).contains(SSBTEKConfiguration.SANITIZED_DETAIL);
 		}
 	}
 
@@ -168,13 +195,25 @@ class SSBTEKConfigurationTest {
 		}
 
 		@Test
-		void decode_withSoapFaultOnSuccessStatus_throwsBadGatewayProblem() {
+		void decode_withSoapFaultOnSuccessStatus_throwsSanitizedBadGatewayProblem() {
 			final var response = responseWithBody(SOAP_FAULT_BODY);
 
 			assertThatThrownBy(() -> decoder.decode(response, SammansattBastjanstSvar.class))
 				.isInstanceOf(ThrowableProblem.class)
-				.hasMessageContaining("Backend exploded")
-				.satisfies(thrown -> assertThat(((ThrowableProblem) thrown).getStatus().value()).isEqualTo(BAD_GATEWAY.value()));
+				.hasMessageContaining(SSBTEKConfiguration.SANITIZED_DETAIL)
+				.satisfies(thrown -> {
+					assertThat(((ThrowableProblem) thrown).getStatus().value()).isEqualTo(BAD_GATEWAY.value());
+					assertThat(thrown.getMessage()).doesNotContain("Backend exploded");
+				});
+		}
+
+		@Test
+		void decode_withInvalidSoapEnvelope_doesNotChainCause() {
+			final var response = responseWithBody("not a soap envelope");
+
+			assertThatThrownBy(() -> decoder.decode(response, SammansattBastjanstSvar.class))
+				.isInstanceOf(DecodeException.class)
+				.satisfies(thrown -> assertThat(thrown.getCause()).isNull());
 		}
 
 		@Test

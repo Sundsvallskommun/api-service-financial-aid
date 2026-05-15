@@ -1,0 +1,3 @@
+# Registers PayloadLoggerSilencer to force se.sundsvall.dept44.payload=OFF before dept44's
+# classpath:/config/application.properties is read. See class Javadoc for details.
+org.springframework.boot.EnvironmentPostProcessor=se.sundsvall.financialaid.configuration.PayloadLoggerSilencer

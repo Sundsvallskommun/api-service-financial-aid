@@ -7,14 +7,14 @@ info:
     url: https://opensource.org/licenses/MIT
   version: "1.0"
 servers:
-  - url: http://localhost:51993
+  - url: http://localhost:59933
     description: Generated server url
 paths:
   /{municipalityId}/financial-aid:
     get:
       tags:
         - financial-aid-resource
-      operationId: getFinancialAid
+      operationId: getFinancialAidBasis
       parameters:
         - name: municipalityId
           in: path

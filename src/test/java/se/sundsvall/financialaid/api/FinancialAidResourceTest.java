@@ -31,12 +31,12 @@ class FinancialAidResourceTest {
 	private FinancialAidResource resource;
 
 	@Test
-	void getFinancialAid_returnsOkWithIntegrationResult() {
+	void getFinancialAid_Basis_returnsOkWithIntegrationResult() {
 		final Map<String, Map<String, Object>> expected = new LinkedHashMap<>();
 		expected.put("csn", Map.of("foo", "bar"));
 		when(ssbtekIntegration.getFinancialAid(PERSONAL_NUMBER, FROM_DATE, TO_DATE)).thenReturn(expected);
 
-		final var response = resource.getFinancialAid(MUNICIPALITY_ID, PERSONAL_NUMBER, FROM_DATE, TO_DATE);
+		final var response = resource.getFinancialAidBasis(MUNICIPALITY_ID, PERSONAL_NUMBER, FROM_DATE, TO_DATE);
 
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).isSameAs(expected);
@@ -45,10 +45,10 @@ class FinancialAidResourceTest {
 	}
 
 	@Test
-	void getFinancialAid_passesParametersThroughUnchanged() {
+	void getFinancialAid_Basis_passesParametersThroughUnchanged() {
 		when(ssbtekIntegration.getFinancialAid(PERSONAL_NUMBER, FROM_DATE, TO_DATE)).thenReturn(Map.of());
 
-		resource.getFinancialAid(MUNICIPALITY_ID, PERSONAL_NUMBER, FROM_DATE, TO_DATE);
+		resource.getFinancialAidBasis(MUNICIPALITY_ID, PERSONAL_NUMBER, FROM_DATE, TO_DATE);
 
 		verify(ssbtekIntegration).getFinancialAid(PERSONAL_NUMBER, FROM_DATE, TO_DATE);
 	}
