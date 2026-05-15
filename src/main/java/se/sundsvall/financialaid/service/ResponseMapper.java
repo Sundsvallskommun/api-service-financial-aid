@@ -20,7 +20,7 @@ public final class ResponseMapper {
 
 	/**
 	 * CSN — Centrala Studiestödsnämnden (Swedish Board of Student Finance). Raw XML bytes in {@code data.svar} carrying
-	 * study allowance, study grant, home equipment loan and study start grant per person. Parsed directly into a generic
+	 * study allowance, study grant, home equipment loan, and study start grant per person. Parsed directly into a generic
 	 * Map structure.
 	 */
 	public static Map<String, Object> mapCsn(final CsnSvar csnResponse) {
@@ -32,7 +32,7 @@ public final class ResponseMapper {
 
 	/**
 	 * FK — Försäkringskassan (Swedish Social Insurance Agency). JSON bytes in {@code data.lefiJsonSvar} (LEFI format) with
-	 * benefit information, claims, decisions and payments. Decoded directly into a Map via Jackson.
+	 * benefit information, claims, decisions, and payments. Decoded directly into a Map via Jackson.
 	 */
 	public static Map<String, Object> mapFk(final ForsakringskassanSvar fkResponse) {
 		if (fkResponse == null || fkResponse.getData() == null || fkResponse.getData().getLefiJsonSvar() == null) {
@@ -44,13 +44,13 @@ public final class ResponseMapper {
 				new TypeReference<>() {
 				});
 		} catch (final IOException exception) {
-			throw new IllegalStateException("Failed to parse FK JSON response", exception);
+			throw new IllegalStateException("Failed to parse FK JSON response: " + exception.getClass().getSimpleName());
 		}
 	}
 
 	/**
-	 * AF — Arbetsförmedlingen (Swedish Public Employment Service). JAXB {@code SvarMeddelande} object with job seeker
-	 * status, unemployment-fund affiliation and reference number. Marshalled to XML and converted to a Map.
+	 * AF — Arbetsförmedlingen (Swedish Public Employment Service). JAXB {@code SvarMeddelande} object with jobseeker
+	 * status, unemployment-fund affiliation, and reference number. Marshaled to XML and converted to a Map.
 	 */
 	public static Map<String, Object> mapAf(final ArbetsformedlingenSvar afResponse) {
 		if (afResponse == null || afResponse.getData() == null) {
@@ -71,8 +71,8 @@ public final class ResponseMapper {
 	}
 
 	/**
-	 * SO — Sveriges A-kassors Samorganisation (Swedish Unemployment Insurance Funds joint organisation). JAXB object with
-	 * unemployment benefit and payments from the unemployment fund. Marshalled to XML and converted to a Map.
+	 * SO — Sveriges A-kassors Samorganisation (Swedish Unemployment Insurance Funds joint organization). JAXB objects to
+	 * unemployment benefit and payments from the unemployment fund. Marshaled to XML and converted to a Map.
 	 */
 	public static Map<String, Object> mapSo(final AkassornasSamorganisationSvar soResponse) {
 		if (soResponse == null || soResponse.getData() == null) {
@@ -83,7 +83,7 @@ public final class ResponseMapper {
 
 	/**
 	 * TNS — Transportstyrelsen (Swedish Transport Agency). JAXB object with vehicle ownership (registration number, make,
-	 * vehicle type etc.). Marshalled to XML and converted to a Map.
+	 * vehicle type, etc.). Marshaled to XML and converted to a Map.
 	 */
 	public static Map<String, Object> mapTns(final TransportstyrelsenSvar tnsResponse) {
 		if (tnsResponse == null || tnsResponse.getData() == null) {
@@ -94,7 +94,7 @@ public final class ResponseMapper {
 
 	/**
 	 * MIV — Migrationsverket (Swedish Migration Agency). JAXB object with residence permit decisions (case type, decision
-	 * code, validity period). Marshalled to XML and converted to a Map.
+	 * code, validity period). Marshaled to XML and converted to a Map.
 	 */
 	public static Map<String, Object> mapMiv(final MigrationsverketSvar mivResponse) {
 		if (mivResponse == null || mivResponse.getData() == null) {

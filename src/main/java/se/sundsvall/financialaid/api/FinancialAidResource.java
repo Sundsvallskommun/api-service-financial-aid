@@ -24,7 +24,7 @@ class FinancialAidResource {
 	}
 
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
-	ResponseEntity<Map<String, Map<String, Object>>> getFinancialAid(
+	ResponseEntity<Map<String, Map<String, Object>>> getFinancialAidBasis(
 		@PathVariable final String municipalityId,
 		@RequestParam final String personalNumber,
 		@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate fromDate,

@@ -2,6 +2,7 @@ package se.sundsvall.financialaid.integration.ssbtek.configuration;
 
 import feign.Client;
 import feign.FeignException;
+import feign.Logger;
 import feign.RequestTemplate;
 import feign.Response;
 import feign.codec.DecodeException;
@@ -27,6 +28,7 @@ import javax.net.ssl.SSLContext;
 import org.springframework.cloud.openfeign.FeignBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import se.sundsvall.dept44.configuration.feign.FeignConfiguration;
 import se.sundsvall.dept44.configuration.feign.FeignMultiCustomizer;
 import se.sundsvall.dept44.problem.Problem;
@@ -42,6 +44,13 @@ import static org.springframework.http.HttpStatus.BAD_GATEWAY;
 public class SSBTEKConfiguration {
 
 	public static final String CLIENT_ID = "ssbtek";
+	static final String SANITIZED_DETAIL = "Communication failure with SSBTEK";
+
+	@Bean
+	@Primary
+	Logger.Level ssbtekFeignLoggerLevel() {
+		return Logger.Level.NONE;
+	}
 
 	@Bean
 	FeignBuilderCustomizer feignBuilderCustomizer(final SSBTEKProperties properties) {
@@ -68,8 +77,8 @@ public class SSBTEKConfiguration {
 		}
 	}
 
-	static ThrowableProblem soapProblem(String message) {
-		return Problem.valueOf(BAD_GATEWAY, "Unknown problem in communication with SSBTEK: " + message);
+	static ThrowableProblem soapProblem() {
+		return Problem.valueOf(BAD_GATEWAY, SANITIZED_DETAIL);
 	}
 
 	static class SOAPFaultErrorDecoder implements ErrorDecoder {
@@ -80,13 +89,13 @@ public class SSBTEKConfiguration {
 				try (var body = response.body().asInputStream()) {
 					SOAPMessage message = MessageFactory.newInstance(SOAPConstants.SOAP_1_1_PROTOCOL).createMessage(null, body);
 					if (message.getSOAPBody() != null && message.getSOAPBody().hasFault()) {
-						return soapProblem(message.getSOAPBody().getFault().getFaultString());
+						return soapProblem();
 					}
 				} catch (Exception exception) {
-					return soapProblem(exception.getMessage());
+					return soapProblem();
 				}
 			}
-			return soapProblem(response.reason());
+			return soapProblem();
 		}
 	}
 
@@ -99,7 +108,7 @@ public class SSBTEKConfiguration {
 				var soapBody = soapMessage.getSOAPBody();
 
 				if (soapBody != null && soapBody.hasFault()) {
-					throw soapProblem(soapBody.getFault().getFaultString());
+					throw soapProblem();
 				}
 
 				var context = JAXBContext.newInstance(SammansattBastjanstSvar.class);
@@ -109,7 +118,7 @@ public class SSBTEKConfiguration {
 				if (exception instanceof RuntimeException runtime) {
 					throw runtime;
 				}
-				throw new DecodeException(response.status(), "Failed to decode SOAP response: " + exception.getMessage(), response.request(), exception);
+				throw new DecodeException(response.status(), "Failed to decode SOAP response: " + exception.getClass().getSimpleName(), response.request());
 			}
 		}
 	}
@@ -137,7 +146,7 @@ public class SSBTEKConfiguration {
 				soapMessage.writeTo(outputStream);
 				template.body(outputStream.toString(StandardCharsets.UTF_8));
 			} catch (Exception exception) {
-				throw new EncodeException("Failed to encode SOAP message", exception);
+				throw new EncodeException("Failed to encode SOAP message: " + exception.getClass().getSimpleName());
 			}
 		}
 	}

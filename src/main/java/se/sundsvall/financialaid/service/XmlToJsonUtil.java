@@ -48,7 +48,7 @@ public final class XmlToJsonUtil {
 				writer);
 			return convert(writer.toString());
 		} catch (final JAXBException exception) {
-			throw new IllegalStateException("Failed to marshal JAXB object to XML", exception);
+			throw new IllegalStateException("Failed to marshal JAXB object to XML: " + exception.getClass().getSimpleName());
 		}
 	}
 
@@ -140,7 +140,9 @@ public final class XmlToJsonUtil {
 			factory.setNamespaceAware(true);
 			return factory.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
 		} catch (final Exception exception) {
-			throw new IllegalStateException("Failed to parse XML", exception);
+			// Drop cause: SAX parser messages can quote source XML containing PII.
+			// Fingerprint with exception type for ops triage.
+			throw new IllegalStateException("Failed to parse XML: " + exception.getClass().getSimpleName());
 		}
 	}
 

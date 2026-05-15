@@ -49,7 +49,7 @@ class ResponseMapperTest {
 
 		@Test
 		void mapCsn_withInvalidXml_shouldThrowException() {
-			final var csnSvar = createCsnSvar("not xml at all");
+			final var csnSvar = createCsnSvar();
 
 			assertThatThrownBy(() -> ResponseMapper.mapCsn(csnSvar))
 				.isInstanceOf(IllegalStateException.class)
@@ -338,10 +338,10 @@ class ResponseMapperTest {
 		return (List<Object>) obj;
 	}
 
-	private static CsnSvar createCsnSvar(final String xml) {
+	private static CsnSvar createCsnSvar() {
 		return new CsnSvar()
 			.withData(new CsnSvarsData()
-				.withSvar(xml.getBytes(StandardCharsets.UTF_8)));
+				.withSvar("not xml at all".getBytes(StandardCharsets.UTF_8)));
 	}
 
 	private static SammansattBastjanstSvar loadFixture(final String filename) {
