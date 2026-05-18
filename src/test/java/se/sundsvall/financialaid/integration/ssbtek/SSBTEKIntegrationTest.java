@@ -66,8 +66,8 @@ class SSBTEKIntegrationTest {
 		assertThat(generella.getTidsperiod().getFromDatum().toString()).isEqualTo(FROM_DATE.toString());
 		assertThat(generella.getTidsperiod().getTomDatum().toString()).isEqualTo(TO_DATE.toString());
 		assertThat(generella.getArendeidentitet()).isNotBlank();
-		assertThat(generella.getSyfte()).isEqualTo("Ekonomiskt bistånd");
-		assertThat(generella.getLagtext()).isEqualTo("4 kap. 1 § SoL");
+		assertThat(generella.getSyfte()).isEqualTo("Beslut om eller kontroll av Ekonomisk försörjningsstöd");
+		assertThat(generella.getLagtext()).isEqualTo("11 kap. 11 a § socialtjänstlagen (2001:453), 5 § förordning (2008:975) om uppgiftsskyldighet i vissa fall enligt socialtjänstlagen.");
 		assertThat(generella.isFraganSkallInkluderasISvaret()).isFalse();
 	}
 
