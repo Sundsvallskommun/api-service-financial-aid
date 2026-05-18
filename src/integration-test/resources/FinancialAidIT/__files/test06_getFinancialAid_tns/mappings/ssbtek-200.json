@@ -6,7 +6,13 @@
 			"Content-Type": {
 				"contains": "text/xml"
 			}
-		}
+		},
+		"bodyPatterns": [
+			{
+				"equalToXml": "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Header/><SOAP-ENV:Body><ns2:hamtaBastjanstInformation xmlns:ns2=\"http://schema.forsakringskassan.se/integration/ssbt/10\"><ns2:generellaFrageparametrar><ns2:korrelationsid>${xmlunit.ignore}</ns2:korrelationsid><ns2:fraganSkallInkluderasISvaret>false</ns2:fraganSkallInkluderasISvaret><ns2:ingivare><ns2:organisationsnummer>162120002411</ns2:organisationsnummer><ns2:namn>Sundsvalls kommun</ns2:namn><ns2:handlaggare>system</ns2:handlaggare></ns2:ingivare><ns2:personidentitet>199001011234</ns2:personidentitet><ns2:arendeidentitet>${xmlunit.ignore}</ns2:arendeidentitet><ns2:tidsperiod><ns2:fromDatum>2025-01-01</ns2:fromDatum><ns2:tomDatum>2025-06-30</ns2:tomDatum></ns2:tidsperiod><ns2:syfte>Beslut om eller kontroll av Ekonomisk försörjningsstöd</ns2:syfte><ns2:lagtext>11 kap. 11 a § socialtjänstlagen (2001:453), 5 § förordning (2008:975) om uppgiftsskyldighet i vissa fall enligt socialtjänstlagen.</ns2:lagtext></ns2:generellaFrageparametrar><ns2:specifikaFrageparametrar><ns2:AF inkludera=\"true\"/><ns2:CSN inkludera=\"true\"/><ns2:FK inkludera=\"true\"><ns2:fraga><ns2:version>v9</ns2:version><ns2:aktorsid>026-51</ns2:aktorsid><ns2:lefiJsonFraga>ewogICJwZXJzb25udW1tZXIiOiAiMTk5MDAxMDExMjM0IiwKICAicGVyaW9kIjogewogICAgImZyb20iOiAiMjAyNS0wMS0wMSIsCiAgICAidG9tIjogIjIwMjUtMDYtMzAiCiAgfSwKICAiZm9ybWFuc2luZm9ybWF0aW9uIjogWyJGSzpBQkIiXSwKICAiYW5zcHJhayI6IFsiUE06QVAiXSwKICAiYmVzbHV0IjogWyJQTTpBUCJdLAogICJwcmVsaW1pbmFyYVV0YmV0YWxuaW5nYXIiOiBbIkZLOkFCQiJdLAogICJ1dGJldGFsbmluZ2FyIjogWyJGSzpBQkIiXSwKICAib3ZyaWdJbmZvcm1hdGlvbiI6IFsiRks6R0VQSSJdCn0K</ns2:lefiJsonFraga></ns2:fraga></ns2:FK><ns2:SKV inkludera=\"true\"/><ns2:SO inkludera=\"true\"/><ns2:TNS inkludera=\"true\"/><ns2:MIV inkludera=\"true\"/></ns2:specifikaFrageparametrar></ns2:hamtaBastjanstInformation></SOAP-ENV:Body></SOAP-ENV:Envelope>",
+				"enablePlaceholders": true
+			}
+		]
 	},
 	"response": {
 		"status": 200,
