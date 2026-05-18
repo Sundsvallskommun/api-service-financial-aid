@@ -6,6 +6,16 @@ import org.springframework.validation.annotation.Validated;
 
 @Validated
 @ConfigurationProperties("integration.ssbtek")
-public record SSBTEKProperties(int connectTimeout, int readTimeout, @NotBlank String keyStoreAsBase64, @NotBlank String keyStorePassword) {
+public record SSBTEKProperties(
+
+	@NotBlank String url,
+
+	int connectTimeout,
+
+	int readTimeout,
+
+	@NotBlank String keyStoreAsBase64,
+
+	@NotBlank String keyStorePassword) {
 
 }

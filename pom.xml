@@ -26,7 +26,7 @@
 
 		<dependency>
 			<groupId>se.sundsvall.dept44</groupId>
-			<artifactId>dept44-starter-feign</artifactId>
+			<artifactId>dept44-starter-webservicetemplate</artifactId>
 		</dependency>
 		<!-- Test -->
 		<dependency>
