@@ -14,6 +14,8 @@ import ssbtek.SammansattBastjanstFraga;
 import ssbtek.SammansattBastjanstSvar;
 import ssbtek.SammansattBastjanstSvarData;
 
+import static java.time.Month.JANUARY;
+import static java.time.Month.JUNE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -24,8 +26,8 @@ import static org.mockito.Mockito.when;
 class SSBTEKIntegrationTest {
 
 	private static final String PERSONAL_NUMBER = "9001011234";
-	private static final LocalDate FROM_DATE = LocalDate.of(2025, 1, 1);
-	private static final LocalDate TO_DATE = LocalDate.of(2025, 6, 30);
+	private static final LocalDate FROM_DATE = LocalDate.of(2025, JANUARY, 1);
+	private static final LocalDate TO_DATE = LocalDate.of(2025, JUNE, 30);
 
 	@Mock
 	private SSBTEKClient client;
