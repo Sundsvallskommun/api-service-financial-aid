@@ -7,6 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.ws.client.WebServiceIOException;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 import se.sundsvall.dept44.problem.ThrowableProblem;
@@ -58,5 +59,17 @@ class SSBTEKClientTest {
 			.isInstanceOf(ThrowableProblem.class)
 			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL)
 			.satisfies(thrown -> assertThat(((ThrowableProblem) thrown).getStatus().value()).isEqualTo(BAD_GATEWAY.value()));
+	}
+
+	@Test
+	void getBaseServiceInformation_onTransportFailure_throwsSanitizedBadGatewayProblem() {
+		when(template.marshalSendAndReceive(any(Object.class)))
+			.thenThrow(new WebServiceIOException("I/O error: Connection reset"));
+
+		assertThatThrownBy(() -> client.getBaseServiceInformation(new SammansattBastjanstFraga()))
+			.isInstanceOf(ThrowableProblem.class)
+			.hasFieldOrPropertyWithValue("status", BAD_GATEWAY)
+			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL)
+			.hasMessageNotContaining("Connection reset");
 	}
 }

@@ -4,6 +4,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import jakarta.xml.bind.JAXBElement;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
+import org.springframework.ws.client.WebServiceIOException;
 import org.springframework.ws.client.core.WebServiceTemplate;
 import org.springframework.ws.soap.client.SoapFaultClientException;
 import se.sundsvall.dept44.problem.Problem;
@@ -34,6 +35,11 @@ public class SSBTEKClient {
 			final var response = template.marshalSendAndReceive(requestElement);
 			return extractResponse(response);
 		} catch (final SoapFaultClientException exception) {
+			throw soapProblem();
+		} catch (final WebServiceIOException exception) {
+			// A transport failure (TLS handshake, connection reset, timeout) is an upstream problem like a SOAP fault
+			// is: report it as 502 and keep the raw message out of the response, which would otherwise expose SSBTEK
+			// connection internals.
 			throw soapProblem();
 		}
 	}
