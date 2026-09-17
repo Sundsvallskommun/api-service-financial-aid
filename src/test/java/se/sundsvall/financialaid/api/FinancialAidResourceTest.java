@@ -11,6 +11,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import se.sundsvall.financialaid.integration.ssbtek.SSBTEKIntegration;
 
+import static java.time.Month.JANUARY;
+import static java.time.Month.JUNE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -21,8 +23,8 @@ class FinancialAidResourceTest {
 
 	private static final String MUNICIPALITY_ID = "2281";
 	private static final String PERSONAL_NUMBER = "9001011234";
-	private static final LocalDate FROM_DATE = LocalDate.of(2025, 1, 1);
-	private static final LocalDate TO_DATE = LocalDate.of(2025, 6, 30);
+	private static final LocalDate FROM_DATE = LocalDate.of(2025, JANUARY, 1);
+	private static final LocalDate TO_DATE = LocalDate.of(2025, JUNE, 30);
 
 	@Mock
 	private SSBTEKIntegration ssbtekIntegration;
