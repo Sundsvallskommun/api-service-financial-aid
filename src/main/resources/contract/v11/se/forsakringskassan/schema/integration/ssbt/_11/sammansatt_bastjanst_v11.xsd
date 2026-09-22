@@ -367,19 +367,36 @@ När             Version   Vem                Ändring.
 			</xsd:choice>
 		</xsd:sequence>
 	</xsd:complexType>
-	<xsd:complexType name="SkatteverketSvar">
+	<xsd:complexType name="SkatteverketDelSvar">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="sv">En av de delar som efterfragats i SkatteverketFraga. Varje del svarar for sig: antingen
+			data (base64-kodad JSON, samma monster som Lefi) eller ett eget error. En person kan alltsa ha uppgifter i
+			en del och 404 i en annan.</xsd:documentation>
+		</xsd:annotation>
 		<xsd:sequence>
-			<xsd:annotation>
-				<xsd:documentation xml:lang="sv">Om bastjänsten levererat ett svar, skickas data-elementet, om ett fel har uppstått skickas error</xsd:documentation>
-			</xsd:annotation>
 			<xsd:choice>
-				<xsd:element name="data" type="skv:BeskattningsuppgifterResponseTYPE">
-					<xsd:annotation>
-						<xsd:documentation xml:lang="sv">Data som Skatteverket levererar</xsd:documentation>
-					</xsd:annotation>
-				</xsd:element>
+				<xsd:element name="data" type="xsd:base64Binary"/>
 				<xsd:element name="error" type="ssbt:Error"/>
 			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="SkatteverketSvar">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="sv">Rekonstruerad ur ett verkligt v11-svar fran Forsakringskassans testmiljo
+			(2026-09-22). I ssbt/10 var Skatteverkets svar ett enda data/svar med XML fran BeskattningsuppgifterResponseTYPE;
+			i ssbt/11 ar det ett delblock per efterfragad del. Ersatt med Forsakringskassans riktiga v11-schema nar vi far det.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="foretagsinformation" type="ssbt:SkatteverketDelSvar" minOccurs="0"/>
+			<xsd:element name="individuppgifter" type="ssbt:SkatteverketDelSvar" minOccurs="0"/>
+			<xsd:element name="skattekonto" type="ssbt:SkatteverketDelSvar" minOccurs="0"/>
+			<xsd:element name="skatteuppgifter" type="ssbt:SkatteverketDelSvar" minOccurs="0"/>
+			<xsd:element name="beskattningsbilagor" type="ssbt:SkatteverketDelSvar" minOccurs="0"/>
+			<xsd:element name="error" type="ssbt:Error" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="sv">Fel som galler hela Skatteverkets svar, till skillnad fran ett fel i en enskild del.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
 		</xsd:sequence>
 	</xsd:complexType>
 	<xsd:complexType name="ArbetsformedlingenSvar">

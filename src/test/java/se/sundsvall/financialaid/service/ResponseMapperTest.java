@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -181,21 +182,53 @@ class ResponseMapperTest {
 		}
 
 		@Test
-		void mapSkv_withFixture_shouldMapPersonuppgift() {
+		void mapSkv_withFixture_shouldMapEachPartSeparately() {
 			final var skvResponse = loadFixture("skv-response.xml").getSvarsdata().getSKV();
 
 			final var result = ResponseMapper.mapSkv(skvResponse);
 
-			final var personuppgift = nested(result, "PersonuppgiftLista", "Personuppgift");
-			assertThat(personuppgift.get("IdentitetsbeteckningFysiskPerson")).isEqualTo("199001011234");
-			assertThat(personuppgift.get("Fornamn")).isEqualTo("Berit");
-			assertThat(personuppgift.get("Efternamn")).isEqualTo("Berg");
-			assertThat(personuppgift.get("StatusPersonuppgiftKod")).isEqualTo("999");
+			assertThat(result).containsOnlyKeys("foretagsinformation", "individuppgifter", "skattekonto", "skatteuppgifter");
 
-			final var kapital = nested(personuppgift, "Kapitaluppgift");
-			assertThat(kapital.get("Taxeringsar")).isEqualTo("2001");
-			assertThat(kapital.get("SummaIntakterPaKapital")).isEqualTo("12345");
-			assertThat(kapital.get("OverskottPaKapital")).isEqualTo("666");
+			final var foretag = nested(result, "foretagsinformation", "foretag");
+			assertThat(foretag.get("foretagId")).isEqualTo("199001011234");
+			assertThat(foretag.get("godkandFskatt")).isEqualTo(false);
+
+			final var skattekonto = nested(result, "skattekonto");
+			assertThat(skattekonto.get("saldo")).isEqualTo(-682);
+			assertThat(skattekonto.get("utbetaltBelopp")).isEqualTo(12000);
+
+			assertThat(nested(result, "skatteuppgifter").get("beslutadeSkatteuppgifter"))
+				.asInstanceOf(InstanceOfAssertFactories.list(Map.class))
+				.singleElement()
+				.satisfies(year -> assertThat(year.get("beskattningsar")).isEqualTo(2024));
+		}
+
+		/**
+		 * The point of keeping the parts apart: Skatteverket answers per part, so a 404 on one must not hide the figures
+		 * in another. Merging them - or letting the first error stand for the whole agency - would lose the skattekonto.
+		 */
+		@Test
+		void mapSkv_withFailingPart_shouldKeepTheOtherPartsIntact() {
+			final var skvResponse = loadFixture("skv-response.xml").getSvarsdata().getSKV();
+
+			final var result = ResponseMapper.mapSkv(skvResponse);
+
+			assertThat(nested(result, "individuppgifter")).containsOnlyKeys(ResponseMapper.KEY_ERROR);
+			assertThat(nested(nested(result, "individuppgifter"), ResponseMapper.KEY_ERROR))
+				.containsEntry("kalla", "BT")
+				.containsEntry("felkod", "404")
+				.containsEntry("felmeddelande", List.of("Not found"));
+			assertThat(nested(result, "skattekonto")).doesNotContainKey(ResponseMapper.KEY_ERROR);
+		}
+
+		@Test
+		void mapSkv_withAgencyWideError_shouldSurfaceItInsteadOfParts() {
+			final var skvResponse = new SkatteverketSvar().withError(new Error()
+				.withKalla(KallaEnum.SSBT)
+				.withFelkod("2001")
+				.withFelmeddelande("Tekniskt fel"));
+
+			assertThat(ResponseMapper.mapSkv(skvResponse)).containsOnlyKeys(ResponseMapper.KEY_ERROR);
 		}
 	}
 

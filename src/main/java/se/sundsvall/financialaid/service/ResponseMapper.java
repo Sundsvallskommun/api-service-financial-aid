@@ -14,6 +14,7 @@ import ssbtek.Error;
 import ssbtek.ForsakringskassanSvar;
 import ssbtek.KallaEnum;
 import ssbtek.MigrationsverketSvar;
+import ssbtek.SkatteverketDelSvar;
 import ssbtek.SkatteverketSvar;
 import ssbtek.TransportstyrelsenSvar;
 
@@ -60,17 +61,10 @@ public final class ResponseMapper {
 			return Map.of();
 		}
 		return mapAgency(fkResponse.getError(), () -> {
-			if (fkResponse.getData() == null || fkResponse.getData().getLefiJsonSvar() == null) {
+			if (fkResponse.getData() == null) {
 				return Map.of();
 			}
-			try {
-				return OBJECT_MAPPER.readValue(
-					fkResponse.getData().getLefiJsonSvar(),
-					new TypeReference<>() {
-					});
-			} catch (final IOException exception) {
-				throw new IllegalStateException("Failed to parse FK JSON response: " + exception.getClass().getSimpleName());
-			}
+			return decodeJson(fkResponse.getData().getLefiJsonSvar(), "FK");
 		});
 	}
 
@@ -86,19 +80,36 @@ public final class ResponseMapper {
 	}
 
 	/**
-	 * SKV — Skatteverket (Swedish Tax Agency). XML string in {@code data.svar} (CDATA-wrapped) with personal data and
-	 * capital information per assessment year. Parsed directly into a Map.
+	 * SKV — Skatteverket (Swedish Tax Agency). Unlike every other agency, ssbt/11 answers with one sub-block per part
+	 * asked for in {@code SkatteverketFraga} — {@code foretagsinformation}, {@code individuppgifter},
+	 * {@code skattekonto}, {@code skatteuppgifter}, {@code beskattningsbilagor} — each carrying either base64-encoded
+	 * JSON or an error of its own. A person can have figures in one part and a 404 in the next, so the parts are kept
+	 * apart in the result rather than merged: {@code {"skattekonto": {…}, "individuppgifter": {"error": {…}}}}.
+	 *
+	 * <p>
+	 * A part Skatteverket left out entirely is omitted, so the presence of a key means "Skatteverket said something
+	 * about this part". An error covering the whole SKV answer still surfaces as {@code {"error": {…}}} at this level,
+	 * exactly as for the other agencies.
 	 */
 	public static Map<String, Object> mapSkv(final SkatteverketSvar skvResponse) {
 		if (skvResponse == null) {
 			return Map.of();
 		}
 		return mapAgency(skvResponse.getError(), () -> {
-			if (skvResponse.getData() == null || skvResponse.getData().getSvar() == null) {
-				return Map.of();
-			}
-			return XmlToJsonUtil.convert(skvResponse.getData().getSvar());
+			final Map<String, Object> parts = new LinkedHashMap<>();
+			putSkvPart(parts, "foretagsinformation", skvResponse.getForetagsinformation());
+			putSkvPart(parts, "individuppgifter", skvResponse.getIndividuppgifter());
+			putSkvPart(parts, "skattekonto", skvResponse.getSkattekonto());
+			putSkvPart(parts, "skatteuppgifter", skvResponse.getSkatteuppgifter());
+			putSkvPart(parts, "beskattningsbilagor", skvResponse.getBeskattningsbilagor());
+			return parts;
 		});
+	}
+
+	private static void putSkvPart(final Map<String, Object> parts, final String name, final SkatteverketDelSvar part) {
+		ofNullable(part)
+			.map(present -> mapAgency(present.getError(), () -> decodeJson(present.getData(), "SKV")))
+			.ifPresent(mapped -> parts.put(name, mapped));
 	}
 
 	/**
@@ -138,6 +149,22 @@ public final class ResponseMapper {
 	 * The {@code data}/{@code error} choice, resolved: a present {@code error} wins, because an agency that reported one
 	 * carries no data to read anyway.
 	 */
+	/**
+	 * Base64-encoded JSON is how both Lefi and Skatteverket ship their payloads in ssbt/11. An absent payload maps to an
+	 * empty map rather than null - the agency answered, it just had nothing to say.
+	 */
+	private static Map<String, Object> decodeJson(final byte[] json, final String agency) {
+		if (json == null) {
+			return Map.of();
+		}
+		try {
+			return OBJECT_MAPPER.readValue(json, new TypeReference<>() {
+			});
+		} catch (final IOException exception) {
+			throw new IllegalStateException("Failed to parse " + agency + " JSON response: " + exception.getClass().getSimpleName());
+		}
+	}
+
 	private static Map<String, Object> mapAgency(final Error error, final Supplier<Map<String, Object>> dataMapper) {
 		return ofNullable(error)
 			.map(ResponseMapper::toErrorMap)

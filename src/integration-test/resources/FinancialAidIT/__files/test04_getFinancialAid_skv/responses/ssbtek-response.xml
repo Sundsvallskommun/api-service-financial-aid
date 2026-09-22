@@ -3,24 +3,22 @@
         <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/11">
             <ssbt:svarsdata>
                 <ssbt:SKV>
-                    <ssbt:data>
-                        <svar><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
-<SvarBeskattningsuppgifterEnligtSFS2008-975 xmlns="http://xmls.skatteverket.se/se/skatteverket/zg/instans/standardiseradInformation/1.0" xmlns:besko="http://xmls.skatteverket.se/se/skatteverket/zg/komponent/infoForBeskattning/1.0" xmlns:folko="http://xmls.skatteverket.se/se/skatteverket/zg/komponent/infoForFolkbokforing/1.0">
-    <PersonuppgiftLista>
-        <Personuppgift>
-            <folko:IdentitetsbeteckningFysiskPerson>199001011234</folko:IdentitetsbeteckningFysiskPerson>
-            <folko:Fornamn>Berit</folko:Fornamn>
-            <folko:Efternamn>Berg</folko:Efternamn>
-            <StatusPersonuppgiftKod>999</StatusPersonuppgiftKod>
-            <Kapitaluppgift>
-                <besko:Taxeringsar>2001</besko:Taxeringsar>
-                <besko:SummaIntakterPaKapital>12345</besko:SummaIntakterPaKapital>
-                <besko:OverskottPaKapital>666</besko:OverskottPaKapital>
-            </Kapitaluppgift>
-        </Personuppgift>
-    </PersonuppgiftLista>
-</SvarBeskattningsuppgifterEnligtSFS2008-975>]]></svar>
-                    </ssbt:data>
+                    <ssbt:foretagsinformation>
+                        <ssbt:data>eyJmb3JldGFnIjp7ImZvcmV0YWdJZCI6IjE5OTAwMTAxMTIzNCIsImFyYmV0c2dpdmFycmVnaXN0cmVyYWQiOmZhbHNlLCJtb21zcmVnaXN0cmVyYWQiOmZhbHNlLCJnb2RrYW5kRnNrYXR0IjpmYWxzZX19</ssbt:data>
+                    </ssbt:foretagsinformation>
+                    <ssbt:individuppgifter>
+                        <ssbt:error>
+                            <ssbt:kalla>BT</ssbt:kalla>
+                            <ssbt:felkod>404</ssbt:felkod>
+                            <ssbt:felmeddelande>Not found</ssbt:felmeddelande>
+                        </ssbt:error>
+                    </ssbt:individuppgifter>
+                    <ssbt:skattekonto>
+                        <ssbt:data>eyJrb250b2hhdmFyZSI6IjE5OTAwMTAxMTIzNCIsInV0YmV0YWx0QmVsb3BwIjoxMjAwMCwiYm9rZm9yaW5nc2RhZyI6IjIwMTMtMDQtMTgiLCJzYWxkbyI6LTY4MiwicHJlbGltaW5hclJhbnRhIjotOCwidXRiZXRhbG5pbmdza29udG8iOiJCZyA3NDQtNzAxNCIsInNlbmFzdFVwcGRhdGVyYWQiOiIyMDI0LTEwLTI4VDAzOjA0OjA1In0=</ssbt:data>
+                    </ssbt:skattekonto>
+                    <ssbt:skatteuppgifter>
+                        <ssbt:data>eyJpZGVudGl0ZXQiOiIxOTkwMDEwMTEyMzQiLCJiZXNsdXRhZGVTa2F0dGV1cHBnaWZ0ZXIiOlt7ImJlc2thdHRuaW5nc2FyIjoyMDI0LCJiZXNrYXR0bmluZ3NwZXJpb2QiOiIyMDI0UDQiLCJkYXR1bUZhc3RzdGFsbGQiOiIyMDI1LTA4LTI2IiwidXBwZ2lmdGVyIjp7Imlua29tc3RhciI6IjIwMjQiLCJvdmVyc2tvdHRBdlRqYW5zdCI6IjE0NDkyNiIsInN1bUthcGl0YWwiOiIyNDk4MTQiLCJmYXN0U3RhbGxkaW5rb21zdCI6IjE0NDkwMCIsInN1bW1hU2x1dGxpZ1NrYXR0IjoiOTQ3MTIifX1dfQ==</ssbt:data>
+                    </ssbt:skatteuppgifter>
                 </ssbt:SKV>
             </ssbt:svarsdata>
         </ssbt:hamtaBastjanstInformationResponse>
