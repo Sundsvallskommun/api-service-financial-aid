@@ -1,0 +1,26 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+        <ssbt:testaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/11">
+            <ssbt:AF>
+                <ssbt:anropad>true</ssbt:anropad>
+            </ssbt:AF>
+            <ssbt:CSN>
+                <ssbt:anropad>true</ssbt:anropad>
+            </ssbt:CSN>
+            <ssbt:FK>
+                <ssbt:anropad>false</ssbt:anropad>
+                <ssbt:error>
+                    <ssbt:kalla>BT</ssbt:kalla>
+                    <ssbt:felkod>LEFI-VERSION</ssbt:felkod>
+                    <ssbt:felmeddelande>Angiven version stöds inte</ssbt:felmeddelande>
+                </ssbt:error>
+            </ssbt:FK>
+            <ssbt:SKV>
+                <ssbt:anropad>true</ssbt:anropad>
+            </ssbt:SKV>
+            <ssbt:SO>
+                <ssbt:anropad>true</ssbt:anropad>
+            </ssbt:SO>
+        </ssbt:testaBastjanstInformationResponse>
+    </soap:Body>
+</soap:Envelope>

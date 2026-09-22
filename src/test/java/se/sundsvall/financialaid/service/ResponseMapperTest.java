@@ -15,11 +15,13 @@ import ssbtek.AkassornasSamorganisationSvar;
 import ssbtek.ArbetsformedlingenSvar;
 import ssbtek.CsnSvar;
 import ssbtek.CsnSvarsData;
+import ssbtek.Error;
 import ssbtek.FindByPersonnummerResponse;
 import ssbtek.FkSvarsData;
 import ssbtek.ForsakringskassanSvar;
 import ssbtek.GetUnemploymentBenefitPaymentResponseType;
 import ssbtek.HamtaUppgifterResponseType;
+import ssbtek.KallaEnum;
 import ssbtek.MigrationsverketSvar;
 import ssbtek.SammansattBastjanstSvar;
 import ssbtek.SkatteverketSvar;
@@ -316,6 +318,70 @@ class ResponseMapperTest {
 			assertThat(svar.get("beslutsKod")).isEqualTo("BEV");
 			assertThat(svar.get("beslutsTyp")).isEqualTo("PUT");
 			assertThat(svar.get("giltighetstid")).isEqualTo("PERMANENT");
+		}
+	}
+
+	/**
+	 * Every {@code *Svar} is an {@code xsd:choice} of {@code data} or {@code error}. Until this was fixed the mapper read
+	 * only {@code data}, so an agency that reported a failure came back as an empty map - the same value as an agency
+	 * that answered "this person has nothing with us". These cases pin the distinction down for all seven.
+	 */
+	@Nested
+	class ErrorTest {
+
+		@Test
+		void mapAf_withError_shouldSurfaceKallaFelkodAndFelmeddelande() {
+			final var afResponse = new ArbetsformedlingenSvar().withError(new Error()
+				.withKalla(KallaEnum.BT)
+				.withFelkod("AF-503")
+				.withFelmeddelande("Tjänsten är inte tillgänglig", "Försök igen senare"));
+
+			final var result = ResponseMapper.mapAf(afResponse);
+
+			final var error = nested(result, "error");
+			assertThat(error.get("kalla")).isEqualTo("BT");
+			assertThat(error.get("felkod")).isEqualTo("AF-503");
+			assertThat(asList(error.get("felmeddelande")))
+				.containsExactly("Tjänsten är inte tillgänglig", "Försök igen senare");
+		}
+
+		@Test
+		void mapFk_withError_shouldSurfaceErrorRatherThanEmptyMap() {
+			final var fkResponse = new ForsakringskassanSvar().withError(new Error()
+				.withKalla(KallaEnum.SSBT)
+				.withFelkod("LEFI-VERSION"));
+
+			final var result = ResponseMapper.mapFk(fkResponse);
+
+			assertThat(result).isNotEmpty();
+			assertThat(nested(result, "error").get("felkod")).isEqualTo("LEFI-VERSION");
+		}
+
+		@Test
+		void mapError_withoutFelmeddelande_shouldOmitTheKeyEntirely() {
+			final var soResponse = new AkassornasSamorganisationSvar().withError(new Error().withFelkod("SO-1"));
+
+			final var error = nested(ResponseMapper.mapSo(soResponse), "error");
+
+			assertThat(error).containsOnlyKeys("felkod");
+		}
+
+		@Test
+		void mapAgency_withNeitherDataNorError_shouldStillReturnEmptyMap() {
+			assertThat(ResponseMapper.mapCsn(new CsnSvar())).isEqualTo(Map.of());
+			assertThat(ResponseMapper.mapFk(new ForsakringskassanSvar())).isEqualTo(Map.of());
+			assertThat(ResponseMapper.mapSkv(new SkatteverketSvar())).isEqualTo(Map.of());
+		}
+
+		@Test
+		void mapError_shouldWinOverData_soAFailedAgencyNeverLooksAnswered() {
+			final var csnResponse = new CsnSvar()
+				.withData(new CsnSvarsData().withSvar("not xml at all".getBytes(StandardCharsets.UTF_8)))
+				.withError(new Error().withFelkod("CSN-9"));
+
+			final var result = ResponseMapper.mapCsn(csnResponse);
+
+			assertThat(nested(result, "error").get("felkod")).isEqualTo("CSN-9");
 		}
 	}
 

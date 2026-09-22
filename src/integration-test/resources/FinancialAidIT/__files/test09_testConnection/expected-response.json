@@ -1,0 +1,30 @@
+{
+	"af": {
+		"anropad": true
+	},
+	"csn": {
+		"anropad": true
+	},
+	"fk": {
+		"anropad": false,
+		"error": {
+			"kalla": "BT",
+			"felkod": "LEFI-VERSION",
+			"felmeddelande": [
+				"Angiven version stöds inte"
+			]
+		}
+	},
+	"skv": {
+		"anropad": true
+	},
+	"so": {
+		"anropad": true
+	},
+	"tns": {
+		"anropad": false
+	},
+	"miv": {
+		"anropad": false
+	}
+}

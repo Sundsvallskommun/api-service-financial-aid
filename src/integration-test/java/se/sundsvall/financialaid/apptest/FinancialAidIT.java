@@ -16,6 +16,7 @@ class FinancialAidIT extends AbstractAppTest {
 	private static final String MUNICIPALITY_ID = "2281";
 	private static final String SERVICE_PATH = "/" + MUNICIPALITY_ID + "/financial-aid?personalNumber=199001011234&fromDate=2025-01-01&toDate=2025-06-30";
 	private static final String EXPECTED_RESPONSE = "expected-response.json";
+	private static final String CONNECTION_PATH = "/" + MUNICIPALITY_ID + "/financial-aid/connection";
 
 	@Test
 	void test01_getFinancialAid_csn() {
@@ -91,6 +92,21 @@ class FinancialAidIT extends AbstractAppTest {
 	void test08_getFinancialAid_allAgencies() {
 		setupCall()
 			.withServicePath(SERVICE_PATH)
+			.withHttpMethod(GET)
+			.withExpectedResponseStatus(OK)
+			.withExpectedResponse(EXPECTED_RESPONSE)
+			.sendRequestAndVerifyResponse();
+	}
+
+	/**
+	 * The connectivity probe: an empty testaBastjanstInformation carrying no personidentitet, and a response in which
+	 * FK failed while the rest answered. TNS and MIV are absent from the response entirely - they have no test service
+	 * of their own - and must come back as anropad:false rather than being dropped.
+	 */
+	@Test
+	void test09_testConnection() {
+		setupCall()
+			.withServicePath(CONNECTION_PATH)
 			.withHttpMethod(GET)
 			.withExpectedResponseStatus(OK)
 			.withExpectedResponse(EXPECTED_RESPONSE)

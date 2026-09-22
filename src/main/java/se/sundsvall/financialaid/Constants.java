@@ -28,7 +28,7 @@ public final class Constants {
 	// LEFI JSON-mall; placeholder: personnummer, fromDatum, tomDatum.
 	//
 	// The benefit codes are the complete enums from the LEFI v9 contract
-	// (contract/v10/se/forsakringskassan/schema/lefi/lefi-formansinformation-v9.openapi.yaml):
+	// (contract/v11/se/forsakringskassan/schema/lefi/lefi-formansinformation-v9.openapi.yaml):
 	// formansinformation takes LefiFkFormanGruppKod, ansprak and beslut take LefiPmFormanGruppKod, and
 	// preliminaraUtbetalningar and utbetalningar take LefiExternFormanGruppKod, the two sets combined.
 	//

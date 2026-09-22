@@ -6,13 +6,13 @@ När             Version   Vem                Ändring.
 2025-01-30:     1.0.0     Magnus Storsjö	 Skillnader mot SSBT_v9: Anropar ny resttjänst ifrån Lefi. Förändringar i ForsakringskassanFraga och ForsakringskassanSvar. För info om Lefi´s resttjänst se deras separata api.
 		
 -->
-<xsd:schema targetNamespace="http://schema.forsakringskassan.se/integration/ssbt/10" 
+<xsd:schema targetNamespace="http://schema.forsakringskassan.se/integration/ssbt/11" 
    xmlns:af="http://api.arbetsformedlingen.se/arbetssokande/ersattningsstod/v2" 
    xmlns:skv="http://beskattningws.ws.service.bs.zg.rsv.se/" 
    xmlns:so="http://INT014.UBPService.Schemas" 
    xmlns:tns="http://schema.transportstyrelsen.se/ssbtek/hamtauppgifterresponder/1"
    xmlns:miv="http://schema.migrationsverket.se/ssbtek/1/"
-   xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10"
+   xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/11"
    xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" version="9.0.4">
 	
 	<xsd:import schemaLocation="../../../../../rsv/zg/bs/service/ws/beskattningws/ZgBsBeskattningWSService_schema.xsd" namespace="http://beskattningws.ws.service.bs.zg.rsv.se/"/>
@@ -144,11 +144,25 @@ När             Version   Vem                Ändring.
 		</xsd:sequence>
 		<xsd:attribute name="inkludera" type="xsd:boolean" use="required"/>
 	</xsd:complexType>
+	<xsd:complexType name="SkatteverketFraga">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="sv">Rekonstruerad ur det kuvert Forsakringskassans egna SoapUI-projekt skickar och som
+			testmiljon accepterar (verifierat 2026-09-22). I ssbt/10 saknades blocket helt - dar stod att Skatteverket inte har
+			nagra specifika frageparametrar - men ssbt/11 avvisar hela forfragan nar SKV inkluderas utan det. Byt ut mot
+			Forsakringskassans riktiga v11-schema sa fort vi far det.</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="ar" type="xsd:int" maxOccurs="unbounded"/>
+			<xsd:element name="foretagsinformation" type="xsd:boolean"/>
+			<xsd:element name="individuppgifter" type="xsd:boolean"/>
+			<xsd:element name="skattekonto" type="xsd:boolean"/>
+			<xsd:element name="skatteuppgifter" type="xsd:boolean"/>
+			<xsd:element name="beskattningsbilagor" type="xsd:boolean"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<xsd:complexType name="Skatteverket">
 		<xsd:sequence>
-			<xsd:annotation>
-				<xsd:documentation xml:lang="sv">Skatteverket har inga specifika frågeparametrar</xsd:documentation>
-			</xsd:annotation>
+			<xsd:element name="fraga" type="ssbt:SkatteverketFraga" minOccurs="0"/>
 		</xsd:sequence>
 		<xsd:attribute name="inkludera" type="xsd:boolean" use="required"/>
 	</xsd:complexType>

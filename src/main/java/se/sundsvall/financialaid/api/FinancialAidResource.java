@@ -23,6 +23,18 @@ class FinancialAidResource {
 		this.ssbtekIntegration = ssbtekIntegration;
 	}
 
+	/**
+	 * Connectivity probe against SSBTEK, using the contract's own {@code testaBastjanstInformation} operation. Takes no
+	 * personnummer and returns no personal data: per agency, whether its backend test service answered
+	 * ({@code anropad}) and the {@code error} if it did not. This is the endpoint to use when verifying the client
+	 * certificate, endpoint URL or contract version against a live SSBTEK - the income endpoint below asserts a
+	 * 11 kap. 11 a § SoL basis that presupposes a real ärende.
+	 */
+	@GetMapping(path = "/connection", produces = APPLICATION_JSON_VALUE)
+	ResponseEntity<Map<String, Map<String, Object>>> testConnection(@PathVariable final String municipalityId) {
+		return ResponseEntity.ok(ssbtekIntegration.testConnection());
+	}
+
 	@GetMapping(produces = APPLICATION_JSON_VALUE)
 	ResponseEntity<Map<String, Map<String, Object>>> getFinancialAidBasis(
 		@PathVariable final String municipalityId,

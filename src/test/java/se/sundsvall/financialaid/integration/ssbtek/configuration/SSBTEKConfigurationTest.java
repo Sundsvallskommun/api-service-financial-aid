@@ -20,7 +20,7 @@ class SSBTEKConfigurationTest {
 	@Test
 	void ssbtekWebServiceTemplate_withValidKeystore_returnsTemplate() throws Exception {
 		final var keystoreBase64 = createEmptyPkcs12KeystoreAsBase64();
-		final var properties = new SSBTEKProperties(URL, 5, 30, keystoreBase64, PASSWORD);
+		final var properties = new SSBTEKProperties(URL, 5, 30, keystoreBase64, PASSWORD, null);
 
 		final var template = configuration.ssbtekWebServiceTemplate(properties, logbook);
 
@@ -33,7 +33,7 @@ class SSBTEKConfigurationTest {
 		final var badBase64 = Base64.getEncoder().encodeToString(new byte[] {
 			1, 2, 3, 4, 5
 		});
-		final var properties = new SSBTEKProperties(URL, 5, 30, badBase64, "x");
+		final var properties = new SSBTEKProperties(URL, 5, 30, badBase64, "x", null);
 
 		assertThatThrownBy(() -> configuration.ssbtekWebServiceTemplate(properties, logbook))
 			.isInstanceOf(RuntimeException.class);

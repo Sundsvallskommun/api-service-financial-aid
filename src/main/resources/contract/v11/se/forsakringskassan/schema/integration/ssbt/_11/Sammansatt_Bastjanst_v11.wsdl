@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><definitions name="BastjanstInformation" 
-	  targetNamespace="http://schema.forsakringskassan.se/integration/ssbt/10"
+	  targetNamespace="http://schema.forsakringskassan.se/integration/ssbt/11"
   xmlns="http://schemas.xmlsoap.org/wsdl/" 
-  xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10" 
+  xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/11" 
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <types>
-    <xsd:schema targetNamespace="http://schema.forsakringskassan.se/integration/ssbt/10" >
-       <xsd:include schemaLocation="sammansatt_bastjanst_v10.xsd"/>
+    <xsd:schema targetNamespace="http://schema.forsakringskassan.se/integration/ssbt/11" >
+       <xsd:include schemaLocation="sammansatt_bastjanst_v11.xsd"/>
     </xsd:schema>
     
   </types>
