@@ -146,10 +146,6 @@ public final class ResponseMapper {
 	}
 
 	/**
-	 * The {@code data}/{@code error} choice, resolved: a present {@code error} wins, because an agency that reported one
-	 * carries no data to read anyway.
-	 */
-	/**
 	 * Base64-encoded JSON is how both Lefi and Skatteverket ship their payloads in ssbt/11. An absent payload maps to an
 	 * empty map rather than null - the agency answered, it just had nothing to say.
 	 */
@@ -165,6 +161,10 @@ public final class ResponseMapper {
 		}
 	}
 
+	/**
+	 * The {@code data}/{@code error} choice, resolved: a present {@code error} wins, because an agency that reported one
+	 * carries no data to read anyway.
+	 */
 	private static Map<String, Object> mapAgency(final Error error, final Supplier<Map<String, Object>> dataMapper) {
 		return ofNullable(error)
 			.map(ResponseMapper::toErrorMap)

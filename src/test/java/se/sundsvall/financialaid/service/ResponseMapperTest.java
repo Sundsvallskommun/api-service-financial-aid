@@ -191,7 +191,7 @@ class ResponseMapperTest {
 
 			final var foretag = nested(result, "foretagsinformation", "foretag");
 			assertThat(foretag.get("foretagId")).isEqualTo("199001011234");
-			assertThat(foretag.get("godkandFskatt")).isEqualTo(false);
+			assertThat(foretag).containsEntry("godkandFskatt", false);
 
 			final var skattekonto = nested(result, "skattekonto");
 			assertThat(skattekonto.get("saldo")).isEqualTo(-682);

@@ -243,7 +243,7 @@ class SSBTEKIntegrationTest {
 		assertThat(result.get(Constants.AGENCY_AF)).containsKey("error");
 		assertThat(result.get(Constants.AGENCY_FK)).containsKey("error");
 		// An agency that simply had nothing to say stays an empty map - that is the distinction the error key restores.
-		assertThat(result.get(Constants.AGENCY_CSN)).isEqualTo(Map.of());
+		assertThat(result).containsEntry(Constants.AGENCY_CSN, Map.of());
 	}
 
 	@Test
@@ -257,7 +257,7 @@ class SSBTEKIntegrationTest {
 		assertThat(result).containsOnlyKeys(
 			Constants.AGENCY_AF, Constants.AGENCY_CSN, Constants.AGENCY_FK,
 			Constants.AGENCY_SKV, Constants.AGENCY_SO, Constants.AGENCY_TNS, Constants.AGENCY_MIV);
-		assertThat(result.get(Constants.AGENCY_AF)).isEqualTo(Map.of("anropad", true));
+		assertThat(result).containsEntry(Constants.AGENCY_AF, Map.of("anropad", true));
 		assertThat(result.get(Constants.AGENCY_FK))
 			.containsEntry("anropad", false)
 			.containsEntry("error", Map.of("felkod", "LEFI-VERSION"));
