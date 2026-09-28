@@ -82,7 +82,9 @@ class SSBTEKPropertiesTest {
 		final var identical = new SSBTEKProperties(URL, 5, 30, "keystore", "password", DATA_PROCESSOR);
 		final var different = new SSBTEKProperties(URL, 5, 30, "otherKeystore", "password", DATA_PROCESSOR);
 
-		assertThat(original).isEqualTo(identical).hasSameHashCodeAs(identical);
-		assertThat(original).isNotEqualTo(different);
+		assertThat(original)
+			.isEqualTo(identical)
+			.hasSameHashCodeAs(identical)
+			.isNotEqualTo(different);
 	}
 }

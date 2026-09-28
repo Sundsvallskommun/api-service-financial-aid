@@ -59,15 +59,16 @@ class SSBTEKIntegrationTest {
 
 		final var result = integration.getFinancialAid(PERSONAL_NUMBER, FROM_DATE, TO_DATE);
 
-		assertThat(result).containsOnlyKeys(
-			Constants.AGENCY_AF,
-			Constants.AGENCY_CSN,
-			Constants.AGENCY_FK,
-			Constants.AGENCY_SKV,
-			Constants.AGENCY_SO,
-			Constants.AGENCY_TNS,
-			Constants.AGENCY_MIV);
-		assertThat(result).allSatisfy((key, value) -> assertThat(value).isEqualTo(Map.of()));
+		assertThat(result)
+			.containsOnlyKeys(
+				Constants.AGENCY_AF,
+				Constants.AGENCY_CSN,
+				Constants.AGENCY_FK,
+				Constants.AGENCY_SKV,
+				Constants.AGENCY_SO,
+				Constants.AGENCY_TNS,
+				Constants.AGENCY_MIV)
+			.allSatisfy((key, value) -> assertThat(value).isEqualTo(Map.of()));
 	}
 
 	@Test

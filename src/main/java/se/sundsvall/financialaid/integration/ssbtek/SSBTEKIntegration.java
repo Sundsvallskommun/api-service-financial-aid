@@ -1,9 +1,5 @@
 package se.sundsvall.financialaid.integration.ssbtek;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.LinkedHashMap;
@@ -26,7 +22,6 @@ import ssbtek.ForsakringskassanFraga;
 import ssbtek.GenerellaFrageparametrar;
 import ssbtek.Ingivare;
 import ssbtek.Migrationsverket;
-import ssbtek.ObjectFactory;
 import ssbtek.Personuppgiftsbitrade;
 import ssbtek.SammansattBastjanstFraga;
 import ssbtek.SammansattBastjanstSvarData;
@@ -47,8 +42,6 @@ public class SSBTEKIntegration {
 	private static final Logger LOG = LoggerFactory.getLogger(SSBTEKIntegration.class);
 
 	private static final DatatypeFactory DATATYPE_FACTORY = createDatatypeFactory();
-	private static final JAXBContext JAXB_CONTEXT = createJaxbContext();
-	private static final ObjectFactory OBJECT_FACTORY = new ObjectFactory();
 	private static final String ORGANISATION_NR = "162120002411";
 	private static final String ORGANISATION_NAME = "Sundsvalls kommun";
 	private static final String FK_AKTORSID = "026-51";
@@ -69,14 +62,6 @@ public class SSBTEKIntegration {
 		}
 	}
 
-	private static JAXBContext createJaxbContext() {
-		try {
-			return JAXBContext.newInstance(SammansattBastjanstFraga.class);
-		} catch (final JAXBException exception) {
-			throw new IllegalStateException("Failed to init JAXBContext", exception);
-		}
-	}
-
 	private final SSBTEKClient client;
 	private final SSBTEKProperties properties;
 
@@ -86,12 +71,10 @@ public class SSBTEKIntegration {
 	}
 
 	public Map<String, Map<String, Object>> getFinancialAid(final String personalNumber, final LocalDate fromDate, final LocalDate toDate) {
-		LOG.info("Received financial aid request: personalNumber={}, fromDate={}, toDate={}",
-			sanitizeForLogging(personalNumber),
+		LOG.info("Received financial aid request: fromDate={}, toDate={}",
 			sanitizeForLogging(fromDate.toString()),
 			sanitizeForLogging(toDate.toString()));
 		final var request = buildRequest(personalNumber, fromDate, toDate, properties.dataProcessor());
-		logRequestXml(request);
 		final var response = client.getBaseServiceInformation(request);
 
 		return mapResponse(response.getSvarsdata());
@@ -135,18 +118,6 @@ public class SSBTEKIntegration {
 			.map(ResponseMapper::toErrorDetails)
 			.ifPresent(error -> agency.put(ResponseMapper.KEY_ERROR, error));
 		return agency;
-	}
-
-	private static void logRequestXml(final SammansattBastjanstFraga request) {
-		try {
-			final var writer = new StringWriter();
-			final var marshaller = JAXB_CONTEXT.createMarshaller();
-			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-			marshaller.marshal(OBJECT_FACTORY.createHamtaBastjanstInformation(request), writer);
-			LOG.info("SSBTEK request XML body:\n{}", sanitizeForLogging(writer.toString()));
-		} catch (final JAXBException exception) {
-			LOG.warn("Failed to marshal SSBTEK request for logging", exception);
-		}
 	}
 
 	private static Map<String, Map<String, Object>> mapResponse(final SammansattBastjanstSvarData responseData) {
