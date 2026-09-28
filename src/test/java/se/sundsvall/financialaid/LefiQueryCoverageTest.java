@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class LefiQueryCoverageTest {
 
-	private static final String CONTRACT = "contract/v10/se/forsakringskassan/schema/lefi/lefi-formansinformation-v9.openapi.yaml";
+	private static final String CONTRACT = "contract/v11/se/forsakringskassan/schema/lefi/lefi-formansinformation-v9.openapi.yaml";
 
 	private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -58,9 +58,9 @@ class LefiQueryCoverageTest {
 
 	@Test
 	void queryCarriesThePersonAndPeriodItWasGiven() throws IOException {
-		final var query = MAPPER.readTree(Constants.LEFI_JSON_TEMPLATE.formatted("198401032399", "2026-06-01", "2026-09-10"));
+		final var query = MAPPER.readTree(Constants.LEFI_JSON_TEMPLATE.formatted("199001011234", "2026-06-01", "2026-09-10"));
 
-		assertThat(query.get("personnummer").asText()).isEqualTo("198401032399");
+		assertThat(query.get("personnummer").asText()).isEqualTo("199001011234");
 		assertThat(query.get("period").get("from").asText()).isEqualTo("2026-06-01");
 		assertThat(query.get("period").get("tom").asText()).isEqualTo("2026-09-10");
 	}

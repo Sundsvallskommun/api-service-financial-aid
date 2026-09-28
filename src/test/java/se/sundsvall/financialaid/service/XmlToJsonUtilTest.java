@@ -24,7 +24,7 @@ class XmlToJsonUtilTest {
 		final var result = XmlToJsonUtil.convert(xml);
 
 		final var parent = asMap(result.get("parent"));
-		assertThat(parent.get("child")).isEqualTo("value");
+		assertThat(parent).containsEntry("child", "value");
 	}
 
 	@Test
@@ -34,9 +34,10 @@ class XmlToJsonUtilTest {
 		final var result = XmlToJsonUtil.convert(xml);
 
 		final var item = asMap(result.get("item"));
-		assertThat(item.get("id")).isEqualTo("42");
-		assertThat(item.get("name")).isEqualTo("foo");
-		assertThat(item.get("#text")).isEqualTo("text");
+		assertThat(item)
+			.containsEntry("id", "42")
+			.containsEntry("name", "foo")
+			.containsEntry("#text", "text");
 	}
 
 	@Test
@@ -46,8 +47,9 @@ class XmlToJsonUtilTest {
 		final var result = XmlToJsonUtil.convert(xml);
 
 		final var item = asMap(result.get("item"));
-		assertThat(item.get("id")).isEqualTo("42");
-		assertThat(item).doesNotContainKey("#text");
+		assertThat(item)
+			.containsEntry("id", "42")
+			.doesNotContainKey("#text");
 	}
 
 	@Test
@@ -81,7 +83,7 @@ class XmlToJsonUtilTest {
 
 		final var result = XmlToJsonUtil.convert(xml);
 
-		assertThat(result.get("value")).isEqualTo("hello");
+		assertThat(result).containsEntry("value", "hello");
 	}
 
 	@Test
@@ -94,7 +96,7 @@ class XmlToJsonUtilTest {
 
 		final var result = XmlToJsonUtil.convert(xml);
 
-		assertThat(result.get("item")).isEqualTo("value");
+		assertThat(result).containsEntry("item", "value");
 	}
 
 	@Test

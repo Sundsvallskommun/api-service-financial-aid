@@ -13,6 +13,7 @@ import org.springframework.ws.soap.client.SoapFaultClientException;
 import se.sundsvall.dept44.problem.ThrowableProblem;
 import ssbtek.SammansattBastjanstFraga;
 import ssbtek.SammansattBastjanstSvar;
+import ssbtek.SammansattBastjanstTestSvar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -71,5 +72,63 @@ class SSBTEKClientTest {
 			.hasFieldOrPropertyWithValue("status", BAD_GATEWAY)
 			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL)
 			.hasMessageNotContaining("Connection reset");
+	}
+
+	@Test
+	void testBaseServiceInformation_withJaxbElementResponse_returnsUnwrappedValue() {
+		final var expected = new SammansattBastjanstTestSvar();
+		final var wrapped = new JAXBElement<>(new QName("ns", "testaBastjanstInformationResponse"), SammansattBastjanstTestSvar.class, expected);
+		when(template.marshalSendAndReceive(any(Object.class))).thenReturn(wrapped);
+
+		assertThat(client.testBaseServiceInformation()).isSameAs(expected);
+	}
+
+	@Test
+	void testBaseServiceInformation_withRawResponse_returnsAsIs() {
+		final var expected = new SammansattBastjanstTestSvar();
+		when(template.marshalSendAndReceive(any(Object.class))).thenReturn(expected);
+
+		assertThat(client.testBaseServiceInformation()).isSameAs(expected);
+	}
+
+	@Test
+	void testBaseServiceInformation_onSoapFault_throwsSanitizedBadGatewayProblem() {
+		when(template.marshalSendAndReceive(any(Object.class))).thenThrow(mock(SoapFaultClientException.class));
+
+		assertThatThrownBy(() -> client.testBaseServiceInformation())
+			.isInstanceOf(ThrowableProblem.class)
+			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL);
+	}
+
+	@Test
+	void testBaseServiceInformation_onTransportFailure_throwsSanitizedBadGatewayProblem() {
+		when(template.marshalSendAndReceive(any(Object.class))).thenThrow(new WebServiceIOException("connect to fmansinfo.forsakringskassan.se failed"));
+
+		assertThatThrownBy(() -> client.testBaseServiceInformation())
+			.isInstanceOf(ThrowableProblem.class)
+			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL)
+			.hasMessageNotContaining("forsakringskassan.se");
+	}
+
+	@Test
+	void getBaseServiceInformation_withWrongResponseType_throwsBadGatewayRatherThanClassCastException() {
+		when(template.marshalSendAndReceive(any(Object.class))).thenReturn(new SammansattBastjanstTestSvar());
+
+		assertThatThrownBy(() -> client.getBaseServiceInformation(new SammansattBastjanstFraga()))
+			.isInstanceOf(ThrowableProblem.class)
+			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL);
+	}
+
+	/**
+	 * The realistic case: a mock (or an endpoint on another contract version) matching the probe too broadly and
+	 * answering it with hamtaBastjanstInformationResponse. That must be a clean 502, not a 500 with a stack trace.
+	 */
+	@Test
+	void testBaseServiceInformation_answeredWithTheOtherOperationsResponse_throwsBadGateway() {
+		when(template.marshalSendAndReceive(any(Object.class))).thenReturn(new SammansattBastjanstSvar());
+
+		assertThatThrownBy(() -> client.testBaseServiceInformation())
+			.isInstanceOf(ThrowableProblem.class)
+			.hasMessageContaining(SSBTEKClient.SANITIZED_DETAIL);
 	}
 }

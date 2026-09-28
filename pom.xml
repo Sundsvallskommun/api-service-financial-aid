@@ -64,7 +64,7 @@
 				<artifactId>jaxb-maven-plugin</artifactId>
 				<version>${jaxb-plugins.version}</version>
 				<configuration>
-					<bindingDirectory>${project.basedir}/src/main/resources/contract/v10</bindingDirectory>
+					<bindingDirectory>${project.basedir}/src/main/resources/contract/v11</bindingDirectory>
 					<extension>true</extension>
 					<args>
 						<arg>-wsdl</arg>
@@ -89,9 +89,9 @@
 						<configuration>
 							<generatePackage>ssbtek</generatePackage>
 							<generateDirectory>${generated-sources-path}/ssbtek</generateDirectory>
-							<schemaDirectory>${project.basedir}/src/main/resources/contract/v10/se/forsakringskassan/schema/integration/ssbt/_10</schemaDirectory>
+							<schemaDirectory>${project.basedir}/src/main/resources/contract/v11/se/forsakringskassan/schema/integration/ssbt/_11</schemaDirectory>
 							<schemaIncludes>
-								<include>Sammansatt_Bastjanst_v10.wsdl</include>
+								<include>Sammansatt_Bastjanst_v11.wsdl</include>
 							</schemaIncludes>
 							<bindingIncludes>
 								<include>binding.xml</include>

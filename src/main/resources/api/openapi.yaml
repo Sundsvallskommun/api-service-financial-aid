@@ -48,6 +48,27 @@ paths:
                 additionalProperties:
                   type: object
                   additionalProperties: { }
+  /{municipalityId}/financial-aid/connection:
+    get:
+      tags:
+        - financial-aid-resource
+      operationId: testConnection
+      parameters:
+        - name: municipalityId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties: { }
   /api-docs:
     get:
       tags:

@@ -54,4 +54,19 @@ class FinancialAidResourceTest {
 
 		verify(ssbtekIntegration).getFinancialAid(PERSONAL_NUMBER, FROM_DATE, TO_DATE);
 	}
+
+	@Test
+	void testConnection_returnsOkWithProbeResult_andSendsNoPersonalNumber() {
+		final Map<String, Map<String, Object>> expected = Map.of(
+			"af", Map.of("anropad", true),
+			"fk", Map.of("anropad", false, "error", Map.of("felkod", "LEFI-VERSION")));
+		when(ssbtekIntegration.testConnection()).thenReturn(expected);
+
+		final var response = resource.testConnection(MUNICIPALITY_ID);
+
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(response.getBody()).isSameAs(expected);
+		verify(ssbtekIntegration).testConnection();
+		verifyNoMoreInteractions(ssbtekIntegration);
+	}
 }

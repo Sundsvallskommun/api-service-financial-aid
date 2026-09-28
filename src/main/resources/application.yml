@@ -15,3 +15,11 @@ integration:
     read-timeout: 30
     key-store-as-base64: ${SSBTEK_KEYSTORE_BASE64:}
     key-store-password: ${SSBTEK_KEYSTORE_PASSWORD:}
+    # Optional personuppgiftsbitrade block. Deliberately not declared with empty defaults: the whole
+    # block binds to null when no key is set, and the request then omits it - which is what the
+    # production endpoint has accepted. Forsakringskassan's test environment expects it, so set
+    # INTEGRATION_SSBTEK_DATAPROCESSOR_SEQUENCENUMBER / _ORGANISATIONNUMBER / _NAME there.
+    # data-processor:
+    #   sequence-number: 3
+    #   organisation-number: '162021005521'
+    #   name: Forsakringskassan Test

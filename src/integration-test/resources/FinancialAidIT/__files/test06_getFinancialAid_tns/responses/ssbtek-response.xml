@@ -1,6 +1,6 @@
 <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
     <soap:Body>
-        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/10"
+        <ssbt:hamtaBastjanstInformationResponse xmlns:ssbt="http://schema.forsakringskassan.se/integration/ssbt/11"
                                                 xmlns:tns="http://schema.transportstyrelsen.se/ssbtek/hamtauppgifterresponder/1"
                                                 xmlns:fordon="http://schema.transportstyrelsen.se/ssbtek/fordon/1">
             <ssbt:svarsdata>

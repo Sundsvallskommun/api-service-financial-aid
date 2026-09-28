@@ -3,18 +3,48 @@
 	"csn": {},
 	"fk": {},
 	"skv": {
-		"PersonuppgiftLista": {
-			"Personuppgift": {
-				"IdentitetsbeteckningFysiskPerson": "199001011234",
-				"Fornamn": "Berit",
-				"Efternamn": "Berg",
-				"StatusPersonuppgiftKod": "999",
-				"Kapitaluppgift": {
-					"Taxeringsar": "2001",
-					"SummaIntakterPaKapital": "12345",
-					"OverskottPaKapital": "666"
-				}
+		"foretagsinformation": {
+			"foretag": {
+				"foretagId": "199001011234",
+				"arbetsgivarregistrerad": false,
+				"momsregistrerad": false,
+				"godkandFskatt": false
 			}
+		},
+		"individuppgifter": {
+			"error": {
+				"kalla": "BT",
+				"felkod": "404",
+				"felmeddelande": [
+					"Not found"
+				]
+			}
+		},
+		"skattekonto": {
+			"kontohavare": "199001011234",
+			"utbetaltBelopp": 12000,
+			"bokforingsdag": "2013-04-18",
+			"saldo": -682,
+			"preliminarRanta": -8,
+			"utbetalningskonto": "Bg 744-7014",
+			"senastUppdaterad": "2024-10-28T03:04:05"
+		},
+		"skatteuppgifter": {
+			"identitet": "199001011234",
+			"beslutadeSkatteuppgifter": [
+				{
+					"beskattningsar": 2024,
+					"beskattningsperiod": "2024P4",
+					"datumFaststalld": "2025-08-26",
+					"uppgifter": {
+						"inkomstar": "2024",
+						"overskottAvTjanst": "144926",
+						"sumKapital": "249814",
+						"fastStalldinkomst": "144900",
+						"summaSlutligSkatt": "94712"
+					}
+				}
+			]
 		}
 	},
 	"so": {},
